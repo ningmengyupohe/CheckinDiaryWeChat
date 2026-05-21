@@ -1,0 +1,107 @@
+<view class="operation-page">
+  <view class="header">
+    <view class="header-content">
+      <text class="header-title">打卡操作</text>
+      <text class="header-subtitle">管理您的打卡项目和数据</text>
+    </view>
+  </view>
+
+  <view class="content">
+    <!-- 模板项目入口 -->
+    <view class="card template-entry">
+      <view class="template-header">
+        <view class="template-info">
+          <text class="template-title">项目模板</text>
+          <view class="template-subtitle-container">
+            <text class="template-subtitle-line">选择预设模板</text>
+            <text class="template-subtitle-line">快速创建打卡项目</text>
+          </view>
+        </view>
+        <button class="btn btn-primary btn-small" bindtap="goToTemplateList">选择模板</button>
+      </view>
+    </view>
+
+    <!-- 模板应用提示 -->
+    <view wx:if="{{templateApplied}}" class="card template-notice">
+      <text class="notice-icon">✅</text>
+      <text class="notice-text">已应用"{{templateName}}"模板，请完善以下信息：</text>
+    </view>
+
+    <!-- 添加打卡项目表单 -->
+    <view class="card">
+      <form class="form-container" bindsubmit="saveProject" report-submit>
+        <view class="card-title">
+          <text>添加打卡项目</text>
+        </view>
+        
+        <view class="form-group">
+          <text class="form-label">项目名称</text>
+          <input 
+            class="form-input" 
+            name="projectName"
+            placeholder="例如：晨跑、阅读、冥想" 
+            value="{{projectName}}" 
+            bindinput="onProjectNameInput"
+            maxlength="20"
+          />
+        </view>
+        
+        <view class="form-group">
+          <text class="form-label">打卡天数</text>
+          <picker 
+            class="custom-picker" 
+            name="targetDays"
+            range="{{targetDaysOptions}}" 
+            range-key="label"
+            value="{{targetDaysIndex}}" 
+            bindchange="onTargetDaysChange"
+          >
+            <view class="form-input picker-input">{{targetDaysOptions[targetDaysIndex].label}}</view>
+          </picker>
+        </view>
+        
+        <!-- 自定义天数输入框 -->
+        <view wx:if="{{showCustomInput}}" class="form-group">
+          <text class="form-label">自定义天数</text>
+          <input 
+            class="form-input" 
+            type="number"
+            name="customTargetDays"
+            placeholder="请输入自定义天数 (1-999)" 
+            value="{{customTargetDays}}" 
+            bindinput="onCustomTargetDaysInput"
+          />
+        </view>
+        
+        <view class="form-group">
+          <text class="form-label">提醒时间（可选）</text>
+          <picker 
+            class="custom-picker" 
+            name="reminderTime"
+            mode="time" 
+            value="{{reminderTime}}" 
+            bindchange="onReminderTimeChange"
+          >
+            <view class="form-input picker-input">{{reminderTime || '设置提醒时间'}}</view>
+          </picker>
+        </view>
+        
+        <view class="form-group">
+          <text class="form-label">项目描述（可选）</text>
+          <textarea 
+            class="form-input textarea" 
+            name="projectDesc"
+            placeholder="请输入项目描述（可选）" 
+            value="{{projectDesc}}" 
+            bindinput="onProjectDescInput" 
+            maxlength="100" 
+          />
+          <view class="char-count">{{projectDesc.length}}/100</view>
+        </view>
+        
+        <button class="btn btn-primary" form-type="submit">保存项目</button>
+      </form>
+    </view>
+  </view>
+
+</view>

@@ -1,0 +1,910 @@
+/* pages/panel/panel.wxss */
+.panel-page {
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    padding-bottom: 200rpx;
+    position: relative;
+  }
+  
+  /* 轮播图样式 */
+  .swiper-container {
+    height: 400rpx;
+    border-radius: 0 0 40rpx 40rpx;
+    overflow: hidden;
+    margin-bottom: 30rpx;
+    position: relative;
+  }
+  
+  .swiper-container image {
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* 音乐控制面板弹窗样式 */
+  .music-panel-mask {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    .music-panel {
+      background: white;
+      border-radius: 20rpx;
+      width: 90%;
+      max-height: 80%;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      animation: slideUp 0.3s ease;
+    }
+    
+    @keyframes slideUp {
+      from { 
+        opacity: 0;
+        transform: translateY(50rpx);
+      }
+      to { 
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .music-panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 30rpx;
+      border-bottom: 1rpx solid #f0f0f0;
+      background: #f8f9fa;
+    }
+    
+    .panel-title {
+      font-size: 32rpx;
+      font-weight: bold;
+      color: #333;
+    }
+    
+    .panel-close {
+      font-size: 36rpx;
+      color: #666;
+      padding: 10rpx;
+      width: 60rpx;
+      height: 60rpx;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+    
+    .panel-close:active {
+      background: #f0f0f0;
+    }
+    
+    /* 当前播放信息 */
+    .current-music-info {
+      display: flex;
+      align-items: center;
+      padding: 30rpx;
+      background: white;
+      border-bottom: 1rpx solid #f0f0f0;
+    }
+    
+    .music-cover {
+      width: 120rpx;
+      height: 120rpx;
+      background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
+      border-radius: 16rpx;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 24rpx;
+    }
+    
+    .cover-icon {
+      font-size: 48rpx;
+      color: white;
+    }
+    
+    .music-details {
+      flex: 1;
+    }
+    
+    .music-name {
+      font-size: 32rpx;
+      font-weight: bold;
+      color: #333;
+      display: block;
+      margin-bottom: 8rpx;
+    }
+    
+    .music-artist {
+      font-size: 26rpx;
+      color: #666;
+      display: block;
+      margin-bottom: 8rpx;
+    }
+    
+    .music-status {
+      font-size: 24rpx;
+      color: #1890ff;
+      background: rgba(24, 144, 255, 0.1);
+      padding: 6rpx 16rpx;
+      border-radius: 20rpx;
+      display: inline-block;
+    }
+    
+    /* 进度条 */
+    .music-progress {
+      display: flex;
+      align-items: center;
+      gap: 20rpx;
+      padding: 30rpx;
+      background: white;
+      border-bottom: 1rpx solid #f0f0f0;
+    }
+    
+    .time-text {
+      font-size: 24rpx;
+      color: #666;
+      min-width: 80rpx;
+      text-align: center;
+    }
+    
+    .progress-slider {
+      flex: 1;
+    }
+    
+    /* 控制区域 */
+    .control-section {
+      display: flex;
+      align-items: center;
+      padding: 30rpx;
+      background: white;
+      border-bottom: 1rpx solid #f0f0f0;
+      gap: 40rpx;
+    }
+    
+    .volume-section {
+      flex: 1;
+    }
+    
+    .section-label {
+      font-size: 24rpx;
+      color: #666;
+      display: block;
+      margin-bottom: 15rpx;
+      text-align: center;
+    }
+    
+    .volume-control {
+      display: flex;
+      align-items: center;
+      gap: 15rpx;
+    }
+    
+    .volume-icon {
+      font-size: 28rpx;
+      color: #666;
+      width: 30rpx;
+    }
+    
+    .volume-slider {
+      flex: 1;
+    }
+    
+    .volume-text {
+      font-size: 22rpx;
+      color: #666;
+      min-width: 50rpx;
+      text-align: center;
+    }
+    
+    /* 播放控制按钮 */
+    .playback-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 30rpx;
+    }
+    
+    .control-btn {
+      width: 70rpx;
+      height: 70rpx;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: #f8f9fa;
+      transition: all 0.2s ease;
+    }
+    
+    .control-btn:active {
+      background: #e8f4ff;
+    }
+    
+    .btn-icon {
+      font-size: 28rpx;
+      color: #1890ff;
+    }
+    
+    .play-pause-btn {
+      width: 80rpx;
+      height: 80rpx;
+      background: #1890ff;
+    }
+    
+    .play-pause-btn .btn-icon {
+      color: white;
+      font-size: 32rpx;
+    }
+    
+    .play-pause-btn:active {
+      background: #096dd9;
+    }
+    
+    /* 歌曲选择 */
+    .song-select-section {
+      flex: 1;
+    }
+    
+    .song-picker {
+      width: 100%;
+    }
+    
+    .picker-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20rpx 24rpx;
+      background: #f8f9fa;
+      border-radius: 12rpx;
+      border: 1rpx solid #e8e8e8;
+    }
+    
+    .picker-text {
+      font-size: 26rpx;
+      color: #333;
+      flex: 1;
+    }
+    
+    .picker-arrow {
+      font-size: 20rpx;
+      color: #666;
+      margin-left: 10rpx;
+    }
+    
+    /* 歌曲列表区域 */
+    .music-list-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: white;
+    }
+    
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24rpx 30rpx;
+      background: #f8f9fa;
+      border-bottom: 1rpx solid #f0f0f0;
+    }
+    
+    .section-title {
+      font-size: 28rpx;
+      font-weight: bold;
+      color: #333;
+    }
+    
+    .song-count {
+      font-size: 24rpx;
+      color: #666;
+    }
+    
+    .song-list {
+      flex: 1;
+      max-height: 400rpx;
+    }
+    
+    .song-item {
+      display: flex;
+      align-items: center;
+      padding: 24rpx 30rpx;
+      border-bottom: 1rpx solid #f8f9fa;
+      transition: background-color 0.2s ease;
+    }
+    
+    .song-item:active {
+      background-color: #f5f5f5;
+    }
+    
+    .song-item.active {
+      background-color: #f0f8ff;
+    }
+    
+    .song-number {
+      width: 60rpx;
+      margin-right: 20rpx;
+    }
+    
+    .number {
+      font-size: 26rpx;
+      color: #999;
+      text-align: center;
+    }
+    
+    .song-item.active .number {
+      color: #1890ff;
+      font-weight: bold;
+    }
+    
+    .song-info {
+      flex: 1;
+    }
+    
+    .song-name {
+      font-size: 28rpx;
+      color: #333;
+      display: block;
+      margin-bottom: 6rpx;
+    }
+    
+    .song-item.active .song-name {
+      color: #1890ff;
+      font-weight: bold;
+    }
+    
+    .song-artist {
+      font-size: 24rpx;
+      color: #666;
+    }
+    
+    .song-status {
+      width: 60rpx;
+      text-align: center;
+    }
+    
+    .playing-icon {
+      font-size: 24rpx;
+      color: #1890ff;
+      font-weight: bold;
+    }
+    
+    /* 滑块样式优化 */
+    slider {
+      margin: 0;
+    }
+    
+    slider .wx-slider-track {
+      height: 6rpx !important;
+      border-radius: 3rpx !important;
+    }
+    
+    slider .wx-slider-handle {
+      width: 40rpx !important;
+      height: 40rpx !important;
+      margin-top: -17rpx !important;
+      border: 4rpx solid #1890ff !important;
+      background: white !important;
+      box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.15) !important;
+    }
+  
+  /* 头部标题样式 */
+  .header {
+    background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
+    color: white;
+    padding: 30rpx;
+    margin: 0 20rpx;
+    border-radius: 20rpx;
+    margin-top: 10rpx;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.1);
+  }
+   
+  .header-content {
+    text-align: center;
+  }
+  
+  .header-title {
+    font-size: 36rpx;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10rpx;
+  }
+  
+  .header-subtitle {
+    font-size: 24rpx;
+    opacity: 0.9;
+  }
+  
+  /* 视频容器样式 */
+  .video-container {
+    background: white;
+    margin: 30rpx 20rpx;
+    border-radius: 20rpx;
+    padding: 30rpx;
+    box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+  }
+  
+  .video-container video {
+    width: 100%;
+    height: 350rpx;
+    border-radius: 15rpx;
+    margin-bottom: 25rpx;
+  }
+  
+  .video-title {
+    font-size: 32rpx;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15rpx;
+    text-align: center;
+  }
+  
+  .video-time {
+    font-size: 26rpx;
+    color: #666;
+    text-align: center;
+  }
+  
+  /* 打卡数据卡片样式 */
+  .card {
+    background: white;
+    border-radius: 16rpx;
+    padding: 30rpx;
+    margin: 20rpx;
+    box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.08);
+  }
+  
+  .card-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24rpx;
+  }
+  
+  .card-title text:first-child {
+    font-size: 32rpx;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .date-range {
+    font-size: 24rpx;
+    color: #666;
+  }
+  
+  /* 周数据图表样式 */
+  .chart-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20rpx;
+  }
+  
+  .week-chart {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 120rpx;
+    margin-right: 30rpx;
+  }
+  
+  .chart-day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+  }
+  
+  .chart-bar-container {
+    height: 80rpx;
+    width: 20rpx;
+    background: #f0f0f0;
+    border-radius: 10rpx;
+    margin-bottom: 8rpx;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .chart-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, #667eea, #764ba2);
+    border-radius: 10rpx;
+    transition: height 0.3s ease;
+  }
+  
+  .chart-label {
+    font-size: 20rpx;
+    color: #666;
+    margin-bottom: 4rpx;
+  }
+  
+  .chart-value {
+    font-size: 18rpx;
+    color: #999;
+  }
+  
+  .chart-stats {
+    display: flex;
+    flex-direction: column;
+    width: 180rpx;
+  }
+  
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20rpx;
+  }
+  
+  .stat-number {
+    font-size: 28rpx;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 4rpx;
+  }
+  
+  .stat-label {
+    font-size: 20rpx;
+    color: #666;
+  }
+  
+  /* 月度统计样式 */
+  .month-stats {
+    margin-bottom: 24rpx;
+  }
+  
+  .month-stat-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20rpx;
+  }
+  
+  .month-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+  }
+  
+  .month-stat-number {
+    font-size: 32rpx;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8rpx;
+  }
+  
+  .month-stat-label {
+    font-size: 22rpx;
+    color: #666;
+  }
+  
+  /* 月度进度网格样式 */
+  .progress-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 12rpx;
+  }
+  
+  .progress-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12rpx;
+    border-radius: 8rpx;
+    transition: all 0.3s ease;
+  }
+  
+  .progress-item.completed {
+    background: #f0f8ff;
+  }
+  
+  .progress-item.missed {
+    background: #f8f8f8;
+    opacity: 0.6;
+  }
+  
+  .progress-day {
+    font-size: 20rpx;
+    color: #666;
+    margin-bottom: 4rpx;
+  }
+  
+  .progress-dot {
+    font-size: 16rpx;
+  }
+  
+  .progress-item.completed .progress-dot {
+    color: #52c41a;
+  }
+  
+  .progress-item.missed .progress-dot {
+    color: #ff4d4f;
+  }
+  
+  /* 九宫格样式 */
+  .grids {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20rpx;
+    background: white;
+    border-radius: 20rpx;
+    overflow: hidden;
+    box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+  }
+  
+  .grids .item {
+    width: 33.333%;
+    height: 220rpx;
+    border-right: 1rpx solid #f0f0f0;
+    border-bottom: 1rpx solid #f0f0f0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 25rpx 15rpx;
+    background: white;
+    transition: all 0.3s ease;
+  }
+  
+  .grids .item:active {
+    background-color: #f5f5f5;
+  }
+  
+  .grids .item:nth-child(3n) {
+    border-right: 0;
+  }
+  
+  .grids .item:nth-child(7),
+  .grids .item:nth-child(8),
+  .grids .item:nth-child(9) {
+    border-bottom: 0;
+  }
+  
+  .item-icon {
+    width: 80rpx;
+    height: 80rpx;
+    border-radius: 20rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20rpx;
+    font-size: 32rpx;
+  }
+  
+  /* 九宫格图标样式 */
+  .analysis-icon {
+    background-color: rgba(24, 144, 255, 0.1);
+    color: #1890ff;
+  }
+  
+  .checkin-icon {
+    background-color: rgba(47, 194, 91, 0.1);
+    color: #2fc25b;
+  }
+  
+  .task-icon {
+    background-color: rgba(82, 196, 26, 0.1);
+    color: #52c41a;
+  }
+  
+  .complete-icon {
+    background-color: rgba(250, 173, 20, 0.1);
+    color: #faad14;
+  }
+  
+  .project-icon {
+    background-color: rgba(114, 46, 209, 0.1);
+    color: #722ed1;
+  }
+  
+  .badge-icon {
+    background-color: rgba(250, 84, 28, 0.1);
+    color: #fa541c;
+  }
+  
+  .settings-icon {
+    background-color: rgba(128, 128, 128, 0.1);
+    color: #808080;
+  }
+  
+  .weather-icon {
+    background-color: rgba(19, 194, 194, 0.1);
+    color: #13c2c2;
+  }
+  
+  .help-icon {
+    background-color: rgba(235, 47, 150, 0.1);
+    color: #eb2f96;
+  }
+  
+  .icon-text {
+    font-size: 32rpx;
+    font-weight: bold;
+  }
+  
+  .item-text {
+    color: #333;
+    font-size: 28rpx;
+    font-weight: 500;
+    margin-bottom: 8rpx;
+    text-align: center;
+  }
+  
+  .item-subtext {
+    color: #999;
+    font-size: 22rpx;
+    text-align: center;
+  }
+  
+  /* 任务列表样式 */
+  .task-list {
+    background: white;
+    margin: 30rpx 20rpx;
+    border-radius: 20rpx;
+    padding: 30rpx;
+    box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+  }
+  
+  .task-list-header {
+    font-size: 32rpx;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 25rpx;
+    text-align: center;
+    padding-bottom: 20rpx;
+    border-bottom: 1rpx solid #f0f0f0;
+  }
+  
+  .task-item {
+    display: flex;
+    align-items: center;
+    padding: 20rpx 0;
+    border-bottom: 1rpx solid #f8f9fa;
+  }
+  
+  .task-item:last-child {
+    border-bottom: none;
+  }
+  
+  .task-checkbox {
+    width: 40rpx;
+    height: 40rpx;
+    border: 2rpx solid #ddd;
+    border-radius: 8rpx;
+    margin-right: 20rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24rpx;
+    font-weight: bold;
+    color: transparent;
+  }
+  
+  .task-checkbox.completed {
+    background: #52c41a;
+    border-color: #52c41a;
+    color: white;
+  }
+  
+  .task-info {
+    flex: 1;
+  }
+  
+  .task-name {
+    font-size: 28rpx;
+    font-weight: 600;
+    color: #333;
+    display: block;
+    margin-bottom: 8rpx;
+  }
+  
+  .task-description {
+    font-size: 24rpx;
+    color: #666;
+    display: block;
+    margin-bottom: 5rpx;
+  }
+  
+  .task-time {
+    font-size: 22rpx;
+    color: #999;
+    display: block;
+  }
+  
+  .task-status {
+    font-size: 24rpx;
+    padding: 6rpx 12rpx;
+    border-radius: 15rpx;
+    background: #f8f9fa;
+    color: #666;
+  }
+  
+  .task-status.completed {
+    background: rgba(82, 196, 26, 0.1);
+    color: #52c41a;
+  }
+  
+  /* 固定在右上角的音乐控制图标 */
+  .music-control-icon {
+      position: fixed;
+      top: 20rpx;
+      right: 30rpx;
+      width: 80rpx;
+      height: 80rpx;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.15);
+      z-index: 999;
+      backdrop-filter: blur(10rpx);
+      border: 2rpx solid rgba(24, 144, 255, 0.2);
+      transition: all 0.3s ease;
+    }
+    
+    .music-control-icon:active {
+      transform: scale(0.95);
+      background: rgba(255, 255, 255, 1);
+    }
+    
+    .music-icon {
+      font-size: 36rpx;
+      color: #1890ff;
+    }
+    
+    .music-badge {
+      position: absolute;
+      top: -5rpx;
+      right: -5rpx;
+      width: 30rpx;
+      height: 30rpx;
+      background: #ff4d4f;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20rpx;
+      color: white;
+      animation: pulse 1.5s infinite;
+    }
+    
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+    
+    /* 确保音乐面板在悬浮图标之上 */
+    .music-panel-mask {
+      z-index: 1000;
+    }

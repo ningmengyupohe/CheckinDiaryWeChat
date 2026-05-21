@@ -1,0 +1,68 @@
+<!--components/tab-bar/tab-bar.wxml-->
+<view class="tab-bar">
+  <view class="tab-bar-content">
+    <view 
+      class="tab-item {{current === 0 ? 'active' : ''}}" 
+      bindtap="switchTab" 
+      data-index="0"
+      data-path="/pages/panel/panel"
+    >
+      <view class="tab-icon">
+        <image 
+          wx:if="{{current === 0}}"
+          src="/images/tab/panel-active.png" 
+          class="tab-icon-image"
+        />
+        <image 
+          wx:else
+          src="/images/tab/panel.png" 
+          class="tab-icon-image"
+        />
+      </view>
+      <text class="tab-text">打卡面板</text>
+    </view>
+    
+    <view 
+      class="tab-item {{current === 1 ? 'active' : ''}}" 
+      bindtap="switchTab" 
+      data-index="1"
+      data-path="/pages/operation/operation"
+    >
+      <view class="tab-icon">
+        <image 
+          wx:if="{{current === 1}}"
+          src="/images/tab/operation-active.png" 
+          class="tab-icon-image"
+        />
+        <image 
+          wx:else
+          src="/images/tab/operation.png" 
+          class="tab-icon-image"
+        />
+      </view>
+      <text class="tab-text">打卡操作</text>
+    </view>
+    
+    <view 
+      class="tab-item {{current === 2 ? 'active' : ''}}" 
+      bindtap="switchTab" 
+      data-index="2"
+      data-path="/pages/profile/profile"
+    >
+      <view class="tab-icon">
+        <image 
+          wx:if="{{current === 2}}"
+          src="/images/tab/profile-active.png" 
+          class="tab-icon-image"
+        />
+        <image 
+          wx:else
+          src="/images/tab/profile.png" 
+          class="tab-icon-image"
+        />
+      </view>
+      <text class="tab-text">我的</text>
+    </view>
+  </view>
+  <view class="tab-bar-safe-area"></view>
+</view>

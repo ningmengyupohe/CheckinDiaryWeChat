@@ -1,0 +1,617 @@
+/* pages/projects/projects.wxss */
+
+/* 页面容器 */
+.projects-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding-bottom: 120rpx;
+  }
+  
+  /* 头部 */
+  .header {
+    background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
+    color: white;
+    padding: 40rpx 30rpx;
+    border-radius: 0 0 30rpx 30rpx;
+    margin-bottom: 30rpx;
+    box-shadow: 0 4rpx 20rpx rgba(24, 144, 255, 0.2);
+  }
+  
+  .header-content {
+    text-align: center;
+  }
+  
+  .header-title {
+    font-size: 36rpx;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 12rpx;
+  }
+  
+  .header-subtitle {
+    font-size: 24rpx;
+    opacity: 0.9;
+  }
+  
+  /* 内容区域 */
+  .content {
+    padding: 0 30rpx;
+  }
+  
+  /* 项目列表 */
+  .projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24rpx;
+  }
+  
+  /* 项目卡片 */
+  .project-card {
+    background: white;
+    border-radius: 20rpx;
+    overflow: hidden;
+    box-shadow: 0 6rpx 18rpx rgba(0, 0, 0, 0.08);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+  }
+  
+  .project-card:active {
+    transform: translateY(-4rpx);
+    box-shadow: 0 10rpx 24rpx rgba(0, 0, 0, 0.12);
+  }
+  
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 30rpx;
+    border-left: 6rpx solid #1890ff;
+    background: linear-gradient(to right, rgba(24, 144, 255, 0.05), transparent);
+  }
+  
+  .project-info {
+    flex: 1;
+    margin-right: 20rpx;
+  }
+  
+  .project-title-area {
+    display: flex;
+    align-items: center;
+    gap: 16rpx;
+    margin-bottom: 12rpx;
+  }
+  
+  .project-icon {
+    font-size: 36rpx;
+    display: block;
+    min-width: 48rpx;
+    text-align: center;
+  }
+  
+  .project-title {
+    font-size: 32rpx;
+    font-weight: bold;
+    color: #333;
+    line-height: 1.3;
+  }
+  
+  .project-desc {
+    font-size: 26rpx;
+    color: #666;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .project-actions {
+    display: flex;
+    gap: 16rpx;
+  }
+  
+  .edit-btn {
+    font-size: 24rpx;
+    color: #1890ff;
+    padding: 8rpx 16rpx;
+    background: rgba(24, 144, 255, 0.1);
+    border-radius: 16rpx;
+    white-space: nowrap;
+  }
+  
+  .edit-btn:active {
+    background: rgba(24, 144, 255, 0.2);
+  }
+  
+  /* 项目统计 */
+  .project-stats {
+    display: flex;
+    justify-content: space-around;
+    padding: 20rpx 30rpx;
+    background: #f8f9fa;
+    border-top: 1rpx solid #f0f0f0;
+    border-bottom: 1rpx solid #f0f0f0;
+  }
+  
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+  }
+  
+  .stat-label {
+    font-size: 24rpx;
+    color: #666;
+    margin-bottom: 8rpx;
+    white-space: nowrap;
+  }
+  
+  .stat-value {
+    font-size: 32rpx;
+    font-weight: bold;
+    color: #1890ff;
+  }
+  
+  /* 项目底部 */
+  .project-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 20rpx 30rpx;
+    background: white;
+  }
+  
+  .footer-text {
+    font-size: 24rpx;
+    color: #999;
+  }
+  
+  /* 空状态 */
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 120rpx 40rpx;
+    text-align: center;
+  }
+  
+  .empty-icon {
+    font-size: 80rpx;
+    margin-bottom: 30rpx;
+    display: block;
+  }
+  
+  .empty-text {
+    font-size: 32rpx;
+    color: #666;
+    margin-bottom: 16rpx;
+    font-weight: 500;
+  }
+  
+  .empty-tip {
+    font-size: 26rpx;
+    color: #999;
+    line-height: 1.4;
+  }
+  
+  /* 悬浮按钮 */
+  .fab-container {
+    position: fixed;
+    bottom: 60rpx;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+  }
+  
+  .fab {
+    background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
+    color: white;
+    padding: 20rpx 40rpx;
+    border-radius: 50rpx;
+    display: flex;
+    align-items: center;
+    gap: 12rpx;
+    box-shadow: 0 8rpx 24rpx rgba(24, 144, 255, 0.3);
+    pointer-events: auto;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .fab:active {
+    transform: scale(0.95);
+    box-shadow: 0 4rpx 16rpx rgba(24, 144, 255, 0.3);
+  }
+  
+  .fab-icon {
+    font-size: 32rpx;
+    font-weight: bold;
+    display: block;
+  }
+  
+  .fab-text {
+    font-size: 28rpx;
+    font-weight: 500;
+  }
+  
+  /* ================== 编辑项目模态框样式修复 ================== */
+  /* 模态框遮罩 */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 40rpx;
+  }
+  
+  /* 模态框内容 */
+  .modal-content {
+    background: white;
+    border-radius: 20rpx;
+    width: 100%;
+    max-width: 650rpx;
+    overflow: hidden;
+    box-shadow: 0 20rpx 60rpx rgba(0, 0, 0, 0.2);
+    animation: modalFadeIn 0.3s ease-out;
+  }
+  
+  @keyframes modalFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(50rpx) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  
+  /* 模态框头部 */
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 36rpx 40rpx 30rpx;
+    background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
+    border-bottom: 1rpx solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .modal-title {
+    font-size: 36rpx;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.1);
+  }
+  
+  .modal-close {
+    font-size: 48rpx;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1;
+    padding: 16rpx;
+    margin: -16rpx;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .modal-close:active {
+    color: white;
+    transform: scale(0.9);
+  }
+  
+  /* 模态框主体 */
+  .modal-body {
+    padding: 40rpx;
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+  
+  /* 表单组 - 修复输入框布局 */
+  .form-group {
+    margin-bottom: 32rpx;
+  }
+  
+  .form-label {
+    display: block;
+    font-size: 30rpx;
+    color: #333;
+    margin-bottom: 16rpx;
+    font-weight: 600;
+    padding-left: 8rpx;
+  }
+  
+  /* 修复输入框内部文字显示 */
+  .form-input {
+    width: 100%;
+    padding: 28rpx 32rpx;
+    border: 2rpx solid #d9d9d9;
+    border-radius: 12rpx;
+    font-size: 30rpx;
+    background: #ffffff;
+    box-sizing: border-box;
+    transition: all 0.3s;
+    line-height: 1.4;
+    min-height: 96rpx;
+    color: #333;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  }
+  
+  /* 输入框聚焦状态 */
+  .form-input:focus {
+    outline: none;
+    border-color: #1890ff;
+    box-shadow: 0 0 0 3rpx rgba(24, 144, 255, 0.1);
+    background: #ffffff;
+  }
+  
+  /* 输入框占位符 */
+  .form-input::placeholder {
+    color: #999;
+    font-size: 28rpx;
+    opacity: 0.8;
+  }
+  
+  /* 数字输入框特殊样式 */
+  .form-input[type="number"] {
+    font-family: inherit;
+    letter-spacing: 1rpx;
+    -moz-appearance: textfield;
+  }
+  
+  /* 移除数字输入框的上下箭头 */
+  .form-input[type="number"]::-webkit-outer-spin-button,
+  .form-input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  /* 颜色选择器 */
+  .color-picker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20rpx;
+    margin-top: 20rpx;
+    justify-content: space-between;
+  }
+  
+  .color-option {
+    width: 64rpx;
+    height: 64rpx;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 4rpx solid transparent;
+    box-sizing: border-box;
+  }
+  
+  .color-option.selected {
+    border-color: #333;
+    transform: scale(1.15);
+    box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.2);
+  }
+  
+  .color-option:active {
+    transform: scale(0.95);
+  }
+  
+  /* 模态框底部 */
+  .modal-footer {
+    display: flex;
+    padding: 0 40rpx 40rpx;
+    gap: 24rpx;
+  }
+  
+  /* 按钮样式调整 */
+  .btn {
+    flex: 1;
+    padding: 28rpx 0;
+    text-align: center;
+    border-radius: 12rpx;
+    font-size: 30rpx;
+    font-weight: 600;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 1rpx;
+  }
+  
+  .btn-primary {
+    background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
+    color: white;
+    box-shadow: 0 4rpx 12rpx rgba(24, 144, 255, 0.3);
+  }
+  
+  .btn-primary:active {
+    opacity: 0.9;
+    transform: translateY(2rpx);
+    box-shadow: 0 2rpx 6rpx rgba(24, 144, 255, 0.3);
+  }
+  
+  .btn-secondary {
+    background: #f5f5f5;
+    color: #666;
+    box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.05);
+  }
+  
+  .btn-secondary:active {
+    background: #e8e8e8;
+    transform: translateY(2rpx);
+    box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.05);
+  }
+  
+  .btn-danger {
+    background: linear-gradient(135deg, #ff4d4f 0%, #cf1322 100%);
+    color: white;
+    box-shadow: 0 4rpx 12rpx rgba(255, 77, 79, 0.3);
+  }
+  
+  .btn-danger:active {
+    opacity: 0.9;
+    transform: translateY(2rpx);
+    box-shadow: 0 2rpx 6rpx rgba(255, 77, 79, 0.3);
+  }
+  
+  /* 响应式调整 */
+  @media (max-width: 375px) {
+    .modal-body {
+      padding: 32rpx;
+    }
+    
+    .modal-footer {
+      padding: 0 32rpx 32rpx;
+    }
+    
+    .form-input {
+      padding: 24rpx 28rpx;
+      font-size: 28rpx;
+      min-height: 88rpx;
+    }
+    
+    .btn {
+      padding: 24rpx 0;
+      font-size: 28rpx;
+    }
+    
+    .form-label {
+      font-size: 28rpx;
+    }
+  }
+  
+  /* 暗色模式调整 */
+  @media (prefers-color-scheme: dark) {
+    .form-input {
+      background: #2a2a2a;
+      border-color: #444;
+      color: #ffffff;
+    }
+    
+    .form-input::placeholder {
+      color: #888;
+    }
+    
+    .form-input:focus {
+      border-color: #1890ff;
+      background: #333;
+    }
+    
+    .form-label {
+      color: #e0e0e0;
+    }
+    
+    .color-option.selected {
+      border-color: #ffffff;
+    }
+    
+    .btn-secondary {
+      background: #333;
+      color: #ddd;
+    }
+    
+    .btn-secondary:active {
+      background: #444;
+    }
+  }
+  
+  /* 加载动画 */
+  .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60rpx;
+  }
+  
+  .loading-spinner {
+    width: 60rpx;
+    height: 60rpx;
+    border: 4rpx solid #f0f0f0;
+    border-top: 4rpx solid #1890ff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* 修复底部按钮冲突问题 */
+  .fab-container {
+    position: fixed;
+    bottom: 40rpx;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+  }
+  
+  .fab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1890ff, #52c41a);
+    color: white;
+    padding: 20rpx 40rpx;
+    border-radius: 50rpx;
+    box-shadow: 0 4rpx 20rpx rgba(24, 144, 255, 0.3);
+  }
+  
+  .fab-icon {
+    font-size: 36rpx;
+    margin-right: 10rpx;
+    font-weight: bold;
+  }
+  
+  .fab-text {
+    font-size: 28rpx;
+    font-weight: 500;
+  }
+  
+  /* 空状态样式 */
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 100rpx 0;
+    text-align: center;
+  }
+  
+  .empty-icon {
+    font-size: 80rpx;
+    margin-bottom: 30rpx;
+  }
+  
+  .empty-text {
+    font-size: 32rpx;
+    color: #666;
+    margin-bottom: 20rpx;
+  }
+  
+  .empty-tip {
+    font-size: 24rpx;
+    color: #999;
+  }
+  
+  /* 修复输入框文字对齐 */
+  .form-input {
+    text-align: left;
+    -webkit-text-fill-color: #333; /* 修复iOS上的文字颜色 */
+  }
+  
+  .form-input[type="number"] {
+    text-align: left;
+  }
+  
+  /* 确保输入框在iOS上显示正常 */
+  @supports (-webkit-touch-callout: none) {
+    .form-input {
+      -webkit-appearance: none;
+      border-radius: 12rpx;
+    }
+  }

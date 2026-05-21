@@ -1,0 +1,99 @@
+<!-- pages/feedback/feedback.wxml -->
+<view class="feedback-page">
+  <view class="header">
+    <view class="header-content">
+      <text class="header-title">问题反馈</text>
+      <text class="header-subtitle">您的建议帮助我们做得更好</text>
+    </view>
+  </view>
+
+  <view class="content">
+    <form bindsubmit="submitFeedback" report-submit>
+      <!-- 用户账号（必填） -->
+      <view class="card">
+        <view class="form-group">
+          <text class="form-label required">用户账号</text>
+          <input 
+            class="form-input {{errors.username ? 'error' : ''}}" 
+            name="username"
+            placeholder="请输入您的用户账号"
+            value="{{username}}"
+            bindinput="onUsernameInput"
+            bindblur="validateField"
+            data-field="username"
+            maxlength="50"
+          />
+          <view class="form-tip">用于定位和解决您的问题</view>
+          <view class="error-tip" wx:if="{{errors.username}}">{{errors.username}}</view>
+        </view>
+      </view>
+
+      <!-- 反馈类型（下拉单选） -->
+      <view class="card">
+        <view class="form-group">
+          <text class="form-label required">反馈类型</text>
+          <picker 
+            range="{{feedbackTypes}}" 
+            range-key="name"
+            value="{{typeIndex}}" 
+            bindchange="onTypeChange"
+            mode="selector"
+          >
+            <view class="form-input picker-input {{typeIndex === -1 ? 'placeholder' : ''}} {{errors.feedbackType ? 'error' : ''}}">
+              {{typeIndex === -1 ? '请选择反馈类型' : feedbackTypes[typeIndex].name}}
+              <text class="picker-arrow">▼</text>
+            </view>
+          </picker>
+          <view class="error-tip" wx:if="{{errors.feedbackType}}">{{errors.feedbackType}}</view>
+        </view>
+      </view>
+
+      <!-- 具体内容（必填） -->
+      <view class="card">
+        <view class="form-group">
+          <text class="form-label required">具体内容</text>
+          <textarea 
+            class="form-input textarea {{errors.content ? 'error' : ''}}" 
+            name="content"
+            placeholder="请详细描述您遇到的问题、建议或需求..."
+            value="{{content}}"
+            bindinput="onContentInput"
+            bindblur="validateField"
+            data-field="content"
+            maxlength="1000"
+            show-confirm-bar="{{false}}"
+          />
+          <view class="char-count">{{content.length}}/1000</view>
+          <view class="form-tip">请尽可能详细地描述，有助于我们快速解决问题</view>
+          <view class="error-tip" wx:if="{{errors.content}}">{{errors.content}}</view>
+        </view>
+      </view>
+
+      <!-- 证明材料（非必填） -->
+      <view class="card">
+        <view class="form-group">
+          <text class="form-label">证明材料</text>
+          <view class="upload-container">
+            <view class="upload-tip">可上传截图、日志文件等（最多3个文件）</view>
+            <view class="upload-list">
+              <view class="upload-item" wx:for="{{files}}" wx:key="*this" wx:for-item="file">
+                <image class="file-preview" src="{{file}}" mode="aspectFill"></image>
+                <view class="file-remove" bindtap="removeFile" data-index="{{index}}">×</view>
+              </view>
+              <view class="upload-btn {{files.length >= 3 ? 'disabled' : ''}}" bindtap="chooseFile">
+                <text class="upload-icon">+</text>
+                <text class="upload-text">添加文件</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 提交按钮 - 始终显示，但验证后提示 -->
+      <button class="submit-btn" form-type="submit">
+        <text class="btn-text">提交反馈</text>
+        <text class="btn-loading" wx:if="{{isSubmitting}}">提交中...</text>
+      </button>
+    </form>
+  </view>
+</view>

@@ -1,0 +1,84 @@
+<!--pages/login/login.wxml-->
+<view class="login-page">
+  <!-- 顶部背景 -->
+  <view class="header">
+    <image class="header-bg" src="/images/login-bg.jpg" mode="aspectFill"></image>
+    <view class="header-overlay"></view>
+    <view class="header-content">
+      <text class="welcome-text">欢迎使用</text>
+      <text class="sub-text">习惯养成打卡小程序</text>
+    </view>
+  </view>
+
+  <!-- 登录内容 -->
+  <view class="form-container">
+    <!-- 欢迎语 -->
+    <view class="welcome-section">
+      <image class="app-logo" src="/images/app-logo.png"></image>
+      <text class="app-title">习惯养成打卡</text>
+      <text class="app-desc">记录点滴进步，养成良好习惯</text>
+    </view>
+
+    <!-- 微信一键登录 -->
+    <view class="login-methods">
+      <view class="method-intro">
+        <text class="intro-text">使用微信一键登录，快速开始您的习惯养成之旅</text>
+      </view>
+      
+      <button class="login-btn wechat-btn" bindtap="loginWithWeChat" hover-class="btn-hover">
+        <view class="btn-content">
+          <image class="btn-icon" src="/images/wechat-icon.png"></image>
+          <text class="btn-text">微信一键登录</text>
+        </view>
+      </button>
+
+      <view class="login-tips">
+        <text class="tip-text">登录即表示您已阅读并同意</text>
+        <text class="tip-link" bindtap="showUserAgreement">《用户协议》</text>
+        <text class="tip-text">和</text>
+        <text class="tip-link" bindtap="showPrivacyPolicy">《隐私政策》</text>
+      </view>
+    </view>
+
+    <!-- 功能说明 -->
+    <view class="feature-list">
+      <view class="feature-item">
+        <image class="feature-icon" src="/images/checkin-icon.png"></image>
+        <view class="feature-info">
+          <text class="feature-title">每日打卡</text>
+          <text class="feature-desc">记录习惯养成过程</text>
+        </view>
+      </view>
+      
+      <view class="feature-item">
+        <image class="feature-icon" src="/images/statistic-icon.png"></image>
+        <view class="feature-info">
+          <text class="feature-title">数据统计</text>
+          <text class="feature-desc">查看坚持进度和趋势</text>
+        </view>
+      </view>
+      
+      <view class="feature-item">
+        <image class="feature-icon" src="/images/badge-icon.png"></image>
+        <view class="feature-info">
+          <text class="feature-title">成就徽章</text>
+          <text class="feature-desc">解锁成就奖励</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 底部信息 -->
+    <view class="bottom-info">
+      <text class="version-info">版本 1.0.0</text>
+      <text class="contact-info">如有问题请联系客服</text>
+    </view>
+  </view>
+
+  <!-- 加载提示 -->
+  <view wx:if="{{loading}}" class="loading-mask">
+    <view class="loading-content">
+      <image class="loading-icon" src="/images/loading.gif"></image>
+      <text class="loading-text">{{loadingText}}</text>
+    </view>
+  </view>
+</view>

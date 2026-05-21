@@ -1,0 +1,124 @@
+<!-- pages/edit-profile/edit-profile.wxml -->
+<view class="edit-profile-page">
+  <!-- 头部导航 -->
+  <view class="header">
+    <view class="back-btn" bindtap="goBack">
+      <text class="back-icon">‹</text>
+      <text class="back-text">返回</text>
+    </view>
+    <text class="header-title">编辑资料</text>
+  </view>
+
+  <!-- 主要内容区域 -->
+  <scroll-view class="content" scroll-y>
+    <!-- 当前用户信息卡片 -->
+    <view class="card user-info-card" style="position: relative; left: -20rpx; top: 0rpx; width: 687rpx; display: block; box-sizing: border-box">
+      <view class="current-user-info">
+        <image class="current-avatar" src="{{userInfo.avatar || defaultAvatar}}" mode="aspectFill"></image>
+        <view class="user-details">
+          <text class="current-nickname">{{userInfo.nickname || '未设置昵称'}}</text>
+          <text class="user-id">ID: {{userInfo.userId || '--'}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 头像设置区域 -->
+    <view class="card avatar-section" style="position: relative; left: -20rpx; top: 0rpx; width: 683rpx; display: block; box-sizing: border-box">
+      <view class="section-title">修改头像</view>
+      
+      <view class="avatar-preview">
+        <image 
+          class="avatar-image" 
+          src="{{avatarUrl || userInfo.avatar || defaultAvatar}}" 
+          mode="aspectFill"
+          bindtap="previewAvatar"
+        ></image>
+        <view class="avatar-tip">点击头像可放大预览</view>
+      </view>
+      
+      <view class="avatar-actions">
+        <button class="btn upload-btn" bindtap="chooseAvatar" disabled="{{uploading}}">
+          <text class="btn-icon">📷</text>
+          <text class="btn-text">{{uploading ? '上传中...' : '更换头像'}}</text>
+        </button>
+        
+        <button class="btn download-btn" bindtap="downloadAvatar" disabled="{{downloading}}">
+          <text class="btn-icon">⬇️</text>
+          <text class="btn-text">{{downloading ? '下载中...' : '下载头像'}}</text>
+        </button>
+        
+        <button class="btn reset-btn" bindtap="resetAvatar" wx:if="{{avatarUrl && avatarUrl !== userInfo.avatar}}">
+          <text class="btn-icon">↺</text>
+          <text class="btn-text">恢复原头像</text>
+        </button>
+      </view>
+    </view>
+
+    <!-- 昵称修改区域 -->
+    <view class="card nickname-section" style="position: relative; left: -20rpx; top: -2rpx; width: 683rpx; display: block; box-sizing: border-box">
+      <view class="section-title">修改昵称</view>
+      
+      <view class="form-group">
+        <text class="form-label">昵称</text>
+        <input 
+          class="form-input" 
+          value="{{newNickname || userInfo.nickname}}" 
+          placeholder="请输入昵称（2-20个字符）"
+          placeholder-class="placeholder"
+          bindinput="onNicknameChange"
+          maxlength="20"
+        />
+        <view class="char-count-box">
+          <text class="char-count">{{charCount}}/20</text>
+        </view>
+      </view>
+      
+      <view class="nickname-tips">
+        <text class="tip-icon">💡</text>
+        <text class="tip-text">昵称应为2-20个字符，支持中文、英文、数字</text>
+      </view>
+    </view>
+
+    <!-- 用户其他信息 -->
+    <view class="card info-section" style="position: relative; left: -20rpx; top: 0rpx; width: 683rpx; display: block; box-sizing: border-box">
+      <view class="section-title">账户信息</view>
+      
+      <view class="info-list">
+        <view class="info-item">
+          <text class="info-label">用户ID</text>
+          <text class="info-value">{{userInfo.userId || '--'}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">注册时间</text>
+          <text class="info-value">{{userInfo.registerTime || '--'}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">连续打卡</text>
+          <text class="info-value">{{userInfo.continuousDays || 0}} 天</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="action-buttons" style="width: 731rpx; display: flex; box-sizing: border-box">
+      <button class="btn btn-save" bindtap="saveProfile" disabled="{{loading || (!hasChanges)}}">
+        <text class="btn-text">
+          {{loading ? '保存中...' : 
+            (hasChanges ? '保存修改' : '暂无修改')}}
+        </text>
+      </button>
+      
+      <button class="btn btn-cancel" bindtap="resetForm" disabled="{{loading || (!newNickname)}}">
+        <text class="btn-text">重置修改</text>
+      </button>
+    </view>
+  </scroll-view>
+
+  <!-- 加载提示 -->
+  <view class="loading" wx:if="{{loading}}">
+    <view class="loading-content">
+      <view class="loading-spinner"></view>
+      <text class="loading-text">保存中...</text>
+    </view>
+  </view>
+</view>

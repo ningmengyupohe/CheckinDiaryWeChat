@@ -1,0 +1,135 @@
+<!-- pages/checkin/checkin.wxml -->
+<view class="checkin-container">
+  <!-- 头部积分信息 -->
+  <view class="header">
+    <view class="points-info">
+      <view class="points-item">
+        <text class="points-label">当前积分</text>
+        <text class="points-value">{{points}}</text>
+      </view>
+      <view class="points-item">
+        <text class="points-label">连续签到</text>
+        <text class="points-value">{{consecutiveDays}}天</text>
+      </view>
+      <view class="points-item">
+        <text class="points-label">完成度</text>
+        <text class="points-value">{{completionRate}}%</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 完成提示 -->
+  <view wx:if="{{isCompleted}}" class="completed-banner">
+    <text class="completed-icon">🎉</text>
+    <text class="completed-text">{{completedTip}}</text>
+  </view>
+
+  <!-- 签到按钮区域 -->
+  <view class="checkin-card">
+    <view class="checkin-header">
+      <text class="checkin-title">{{projectName}}</text>
+      <text class="checkin-date">{{showMonth}} {{currentDay}}日</text>
+    </view>
+    
+    <view class="checkin-button-area">
+      <!-- 按钮样式根据buttonStyle变化 -->
+      <view 
+        class="checkin-button {{buttonStyle}} {{animateClass}}"
+        bindtap="handleCheckin"
+      >
+        <view class="button-inner">
+          <view class="button-icon">
+            <!-- 根据状态显示不同的图标 -->
+            <text wx:if="{{buttonStyle === 'checked' || isCompleted}}">✓</text>
+            <text wx:elif="{{buttonStyle === 'checking'}}">...</text>
+            <text wx:else>+</text>
+          </view>
+          <text class="button-text">{{checkinTip}}</text>
+        </view>
+        <!-- 显示积分提示 -->
+        <view 
+          wx:if="{{buttonStyle === 'default' && !isCompleted}}" 
+          class="button-points"
+        >
+          +10积分
+        </view>
+      </view>
+      
+      <view class="checkin-tips">
+        <text>目标：{{totalDays}}/{{stats.targetDays || 30}} 天</text>
+        <text class="rules-link" bindtap="viewRules">查看规则 ></text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 日历区域 -->
+  <view class="calendar-card">
+    <view class="calendar-header">
+      <view class="calendar-title">
+        <text>签到日历</text>
+        <text class="today-btn" bindtap="goToday">今天</text>
+      </view>
+      
+      <view class="month-switcher">
+        <text class="switch-btn" bindtap="prevMonth">‹</text>
+        <text class="month-text">{{showMonth}}</text>
+        <text class="switch-btn" bindtap="nextMonth">›</text>
+      </view>
+    </view>
+
+    <!-- 星期行 -->
+    <view class="weekdays">
+      <text class="weekday">日</text>
+      <text class="weekday">一</text>
+      <text class="weekday">二</text>
+      <text class="weekday">三</text>
+      <text class="weekday">四</text>
+      <text class="weekday">五</text>
+      <text class="weekday">六</text>
+    </view>
+
+    <!-- 日期格子 -->
+    <view class="calendar-grid">
+      <block wx:for="{{calendarDays}}" wx:key="index">
+        <view 
+          class="calendar-day {{item.isCurrentMonth ? 'current-month' : 'other-month'}} {{item.isToday ? 'today' : ''}} {{item.isChecked ? 'checked' : ''}}"
+        >
+          <text class="day-number">{{item.day}}</text>
+          <view wx:if="{{item.isChecked}}" class="check-icon">✓</view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 签到记录 -->
+  <view class="record-card">
+    <view class="record-header">
+      <text class="record-title">本月签到记录</text>
+      <text class="record-count">已签到 {{checkInDays.length}} 天</text>
+    </view>
+    
+    <view wx:if="{{checkInDays.length === 0}}" class="empty-record">
+      <text class="empty-text">暂无签到记录</text>
+      <text class="empty-tip">快来签到吧！</text>
+    </view>
+    
+    <view wx:else class="record-list">
+      <block wx:for="{{checkInDays.slice(-5)}}" wx:key="index">
+        <view class="record-item">
+          <text class="record-date">{{item}}</text>
+          <text class="record-status">已签到</text>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 底部按钮 -->
+  <view class="footer-buttons">
+    <view class="btn-back" bindtap="goBackToProjects">
+      <text>返回项目列表</text>
+    </view>
+    <view class="btn-detail" bindtap="viewProjectDetail">
+      <text>项目详情</text>
+    </view>
+  </view>
+</view>

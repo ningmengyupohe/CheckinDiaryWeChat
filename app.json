@@ -1,0 +1,68 @@
+{
+  "pages": [
+    "pages/panel/panel",
+    "pages/operation/operation",
+    "pages/profile/profile",
+    "pages/project-template/project-template",
+    "pages/feedback/feedback",
+    "pages/edit-profile/edit-profile",
+    "pages/weather/weather",
+    "pages/checkin/checkin",
+    "pages/projects/projects",
+    "pages/calendar-checkin/calendar-checkin",
+    "pages/analysis/analysis",
+    "pages/badges/badges",
+    "pages/login/login"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#1890ff",
+    "navigationBarTitleText": "打卡日记",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f8f9fa",
+    "enablePullDownRefresh": false
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#1890ff",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/panel/panel",
+        "text": "首页",
+        "iconPath": "images/tab/panel.png",
+        "selectedIconPath": "images/tab/panel-active.png"
+      },
+      {
+        "pagePath": "pages/operation/operation",
+        "text": "操作",
+        "iconPath": "images/tab/operation.png",
+        "selectedIconPath": "images/tab/operation-active.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "images/tab/profile.png",
+        "selectedIconPath": "images/tab/profile-active.png"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "connectSocket": 10000,
+    "uploadFile": 10000,
+    "downloadFile": 10000
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "获取位置信息以便提供更准确的天气服务"
+    }
+  },
+  "requiredPrivateInfos": [
+    "getLocation"
+  ],
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents",
+  "style": "v2"
+}

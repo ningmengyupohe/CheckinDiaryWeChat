@@ -1,0 +1,238 @@
+<!--pages/badges/badges.wxml-->
+<view class="badges-page" style="height: 1339rpx; display: block; box-sizing: border-box">
+  <!-- 加载状态 -->
+  <view wx:if="{{loading}}" class="loading-container">
+    <view class="loading">
+      <text class="loading-text">加载数据中...</text>
+    </view>
+  </view>
+
+  <!-- 主要内容 -->
+  <view wx:else class="main-content">
+    <!-- 标签页切换 -->
+    <view class="tabs-header">
+      <block wx:for="{{tabs}}" wx:key="index">
+        <view 
+          class="tab-item {{activeTab === index ? 'active' : ''}}" 
+          data-index="{{index}}" 
+          bindtap="switchTab"
+        >
+          <text class="tab-text">{{item}}</text>
+          <view class="tab-indicator {{activeTab === index ? 'active' : ''}}"></view>
+        </view>
+      </block>
+    </view>
+
+    <!-- 徽章标签页内容 -->
+    <view wx:if="{{activeTab === 0}}" class="tab-content">
+      <!-- 徽章统计 -->
+      <view class="stats-header">
+        <view class="stats-card">
+          <view class="stats-item">
+            <text class="stats-number">{{badgesUnlockedCount}}/{{badgesTotalCount}}</text>
+            <text class="stats-label">徽章获得</text>
+          </view>
+        </view>
+        
+        <!-- 数据统计 -->
+        <view class="data-stats">
+          <view class="data-item">
+            <text class="data-value">{{stats.totalCheckins || 0}}</text>
+            <text class="data-label">累计打卡</text>
+          </view>
+          <view class="data-item">
+            <text class="data-value">{{stats.maxConsecutiveDays || 0}}</text>
+            <text class="data-label">最长连续</text>
+          </view>
+          <view class="data-item">
+            <text class="data-value">{{stats.completedProjects || 0}}/{{stats.projectsCount || 0}}</text>
+            <text class="data-label">项目完成</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 徽章分类标签 -->
+      <scroll-view scroll-x class="category-tabs">
+        <view class="tabs-container">
+          <block wx:for="{{badgeCategories}}" wx:key="id">
+            <view 
+              class="tab-item {{selectedBadgeCategory === item.id ? 'active' : ''}}" 
+              data-category="{{item.id}}" 
+              bindtap="switchBadgeCategory"
+            >
+              <text class="tab-text">{{item.name}}</text>
+            </view>
+          </block>
+        </view>
+      </scroll-view>
+
+      <!-- 徽章列表 -->
+      <scroll-view scroll-y class="badges-list" style="height: 400rpx;">
+        <view class="badges-grid">
+          <!-- 使用 filteredBadges 而不是 getFilteredBadges() -->
+          <block wx:for="{{filteredBadges}}" wx:key="id">
+            <view 
+              class="badge-item {{item.unlocked ? 'unlocked' : 'locked'}}" 
+              data-id="{{item.id}}"
+              data-type="badge"
+              bindtap="viewDetail"
+            >
+              <!-- 徽章图标 -->
+              <view class="badge-icon-wrapper">
+                <view class="badge-icon" style="background-color: {{item.color}}">
+                  <text class="icon-text">{{item.icon}}</text>
+                </view>
+                <!-- 已解锁标识 -->
+                <view wx:if="{{item.unlocked}}" class="unlocked-badge">
+                  <text class="unlocked-text">✓</text>
+                </view>
+              </view>
+              
+              <!-- 徽章名称 -->
+              <text class="badge-name">{{item.name}}</text>
+              
+              <!-- 进度显示 -->
+              <view wx:if="{{item.target > 1 && !item.unlocked}}" class="progress-info">
+                <view class="mini-progress">
+                  <view class="mini-progress-fill" style="width: {{(item.progress / item.target) * 100}}'%'; background-color: {{item.color}}"></view>
+                </view>
+                <text class="progress-text">{{item.progress}}/{{item.target}}</text>
+              </view>
+              
+              <!-- 状态标签 -->
+              <text class="badge-status {{item.unlocked ? 'unlocked-text' : 'locked-text'}}">
+                {{item.unlocked ? '已获得' : '未获得'}}
+              </text>
+            </view>
+          </block>
+        </view>
+
+        <!-- 空状态 -->
+        <view wx:if="{{filteredBadges.length === 0}}" class="empty-state">
+          <text class="empty-icon">🎖️</text>
+          <text class="empty-text">暂无徽章</text>
+          <text class="empty-subtext">继续努力，获得更多徽章吧！</text>
+        </view>
+      </scroll-view>
+    </view>
+
+    <!-- 成就标签页内容 -->
+    <view wx:if="{{activeTab === 1}}" class="tab-content">
+      <!-- 成就统计 -->
+      <view class="stats-header">
+        <view class="stats-card">
+          <view class="stats-item">
+            <text class="stats-number">{{achievementsUnlockedCount}}/{{achievementsTotalCount}}</text>
+            <text class="stats-label">成就完成</text>
+          </view>
+        </view>
+        
+        <!-- 等级统计 -->
+        <view class="level-stats">
+          <view class="level-item">
+            <text class="level-value">{{stats.level || 1}}</text>
+            <text class="level-label">当前等级</text>
+          </view>
+          <view class="level-item">
+            <text class="level-value">{{stats.totalPoints || 0}}</text>
+            <text class="level-label">总积分</text>
+          </view>
+          <view class="level-item">
+            <text class="level-value">{{stats.levelName || '新手'}}</text>
+            <text class="level-label">等级称号</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 成就分类标签 -->
+      <scroll-view scroll-x class="category-tabs">
+        <view class="tabs-container">
+          <block wx:for="{{achievementCategories}}" wx:key="id">
+            <view 
+              class="tab-item {{selectedAchievementCategory === item.id ? 'active' : ''}}" 
+              data-category="{{item.id}}" 
+              bindtap="switchAchievementCategory"
+            >
+              <text class="tab-text">{{item.name}}</text>
+            </view>
+          </block>
+        </view>
+      </scroll-view>
+
+      <!-- 成就列表 -->
+      <scroll-view scroll-y class="achievements-list" style="height: 400rpx;">
+        <!-- 使用 filteredAchievements 而不是 getFilteredAchievements() -->
+        <block wx:for="{{filteredAchievements}}" wx:key="id">
+          <view 
+            class="achievement-item {{item.unlocked ? 'unlocked' : 'locked'}}" 
+            data-id="{{item.id}}"
+            data-type="achievement"
+            bindtap="viewDetail"
+          >
+            <view class="achievement-icon" style="background-color: {{item.color}}20; border-color: {{item.color}}">
+              <text class="icon-text">{{item.icon}}</text>
+            </view>
+            
+            <view class="achievement-content">
+              <view class="achievement-header">
+                <text class="achievement-title">{{item.name}}</text>
+                <text class="achievement-status {{item.unlocked ? 'unlocked-text' : 'locked-text'}}">
+                  {{item.unlocked ? '已完成' : '未完成'}}
+                </text>
+              </view>
+              
+              <text class="achievement-description">{{item.description}}</text>
+              
+              <view wx:if="{{item.reward}}" class="achievement-reward">
+                <text class="reward-icon">🎁</text>
+                <text class="reward-text">奖励: {{item.reward}}</text>
+              </view>
+              
+              <view wx:if="{{!item.unlocked && item.target > 1}}" class="achievement-progress">
+                <view class="progress-container">
+                  <view class="progress-fill" style="width: {{(item.progress / item.target) * 100}}'%'; background-color: {{item.color}}"></view>
+                </view>
+                <text class="progress-text">{{item.progress}}/{{item.target}}</text>
+              </view>
+              
+              <view wx:if="{{item.unlocked && item.date}}" class="achievement-time">
+                <text class="time-text">{{item.date}} 完成</text>
+              </view>
+            </view>
+            
+            <view wx:if="{{item.unlocked}}" class="achievement-actions">
+              <button 
+                class="share-btn" 
+                data-id="{{item.id}}"
+                data-type="achievement"
+                bindtap="shareItem"
+              >
+                <text class="btn-text">分享</text>
+              </button>
+            </view>
+          </view>
+        </block>
+
+        <!-- 空状态 -->
+        <view wx:if="{{filteredAchievements.length === 0}}" class="empty-state">
+          <text class="empty-icon">🏆</text>
+          <text class="empty-text">暂无成就</text>
+          <text class="empty-subtext">继续努力，完成更多成就吧！</text>
+        </view>
+      </scroll-view>
+    </view>
+
+    <!-- 底部提示 -->
+    <view class="bottom-tips">
+      <text class="tips-text">
+        <text wx:if="{{activeTab === 0}}">💡 坚持打卡可以解锁更多徽章</text>
+        <text wx:if="{{activeTab === 1}}">💡 完成成就可以获得积分和称号</text>
+      </text>
+    </view>
+  </view>
+
+  <!-- 刷新按钮 -->
+  <view class="refresh-btn" bindtap="onRefresh">
+    <text class="refresh-icon">🔄</text>
+  </view>
+</view>

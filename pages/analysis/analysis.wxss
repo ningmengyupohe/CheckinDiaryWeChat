@@ -1,0 +1,400 @@
+/* pages/analysis/analysis.wxss */
+.analysis-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #87d6e4 0%, #3c70ff 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* 头部样式 */
+  .header {
+    width: 100%;
+    max-width: 750rpx;
+    padding: 40rpx 30rpx 30rpx;
+    color: white;
+    text-align: center;
+    box-sizing: border-box;
+  }
+  
+  .header-title {
+    font-size: 44rpx;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10rpx;
+  }
+  
+  .header-subtitle {
+    font-size: 28rpx;
+    opacity: 0.9;
+  }
+  
+  /* 主内容容器 */
+  .main-content {
+    width: 100%;
+    max-width: 750rpx;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+  }
+  
+  /* 筛选区域 */
+  .filter-section {
+    background: white;
+    margin: 0 30rpx 20rpx;
+    border-radius: 20rpx;
+    padding: 30rpx;
+    box-shadow: 0 8rpx 30rpx rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+  }
+  
+  .month-picker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f0f5ff;
+    border-radius: 15rpx;
+    padding: 20rpx;
+    margin-bottom: 30rpx;
+  }
+  
+  .picker-icon {
+    font-size: 36rpx;
+    margin-right: 15rpx;
+  }
+  
+  .picker-text {
+    font-size: 32rpx;
+    font-weight: bold;
+    color: #1890ff;
+    flex: 1;
+    text-align: center;
+  }
+  
+  .picker-arrow {
+    font-size: 24rpx;
+    color: #666;
+  }
+  
+  .quick-filters {
+    display: flex;
+    justify-content: space-around;
+    background: #f5f5f5;
+    border-radius: 15rpx;
+    padding: 10rpx;
+  }
+  
+  .filter-tab {
+    flex: 1;
+    text-align: center;
+    padding: 20rpx;
+    font-size: 28rpx;
+    color: #666;
+    border-radius: 10rpx;
+    transition: all 0.3s;
+  }
+  
+  .filter-tab.active {
+    background: white;
+    color: #1890ff;
+    font-weight: bold;
+    box-shadow: 0 4rpx 12rpx rgba(24, 144, 255, 0.2);
+  }
+  
+  /* 关键指标 */
+  .key-metrics {
+    display: flex;
+    margin: 0 30rpx 20rpx;
+    gap: 20rpx;
+    box-sizing: border-box;
+  }
+  
+  .metric-card {
+    flex: 1;
+    background: white;
+    border-radius: 20rpx;
+    padding: 30rpx 20rpx;
+    text-align: center;
+    box-shadow: 0 8rpx 30rpx rgba(0, 0, 0, 0.1);
+  }
+  
+  .metric-number {
+    font-size: 48rpx;
+    font-weight: bold;
+    color: #1890ff;
+    display: block;
+    margin-bottom: 10rpx;
+  }
+  
+  .metric-label {
+    font-size: 24rpx;
+    color: #666;
+    display: block;
+    margin-bottom: 10rpx;
+  }
+  
+  .metric-trend {
+    font-size: 22rpx;
+    font-weight: bold;
+    display: block;
+  }
+  
+  .metric-trend.up {
+    color: #52c41a;
+  }
+  
+  .metric-trend.down {
+    color: #ff4d4f;
+  }
+  
+  /* 图表容器 */
+  .charts-container {
+    flex: 1;
+    padding: 0 30rpx 40rpx;
+    box-sizing: border-box;
+  }
+  
+  .chart-card {
+    background: white;
+    border-radius: 15rpx;
+    padding: 15rpx 20rpx;
+    margin-bottom: 20rpx;
+    box-shadow: 0 8rpx 30rpx rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+  }
+  
+  .chart-header {
+    margin-bottom: 12rpx;
+    text-align: center;
+  }
+  
+  .chart-title {
+    font-size: 28rpx;
+    font-weight: bold;
+    color: #333;
+    display: block;
+    margin-bottom: 6rpx;
+  }
+  
+  .chart-subtitle {
+    font-size: 22rpx;
+    color: #666;
+  }
+  
+  /* 调整统计图区域高度 */
+  .chart-wrapper {
+    width: 100%;
+    height: 300rpx; /* 调整到合适高度 */
+    position: relative;
+    margin-bottom: 8rpx;
+  }
+  
+  .chart-canvas {
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* 周内打卡热度图特殊样式 */
+  .week-heat-chart {
+    height: 150rpx; /* 比普通图表稍小 */
+  }
+  
+  /* 连续打卡和月度对比图特殊样式 */
+  .streak-chart {
+    height: 300rpx; /* 统一调整到相同高度 */
+  }
+  .monthly-chart {
+    height: 300rpx; /* 统一调整到相同高度 */
+  }
+
+  /* 时段分布图特殊样式 */
+  .time-distribution-chart {
+    height: 300rpx; /* 为饼图和标签留出更多空间 */
+  }
+  
+  /* 调整饼图图例 */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 15rpx;
+    gap: 10rpx;
+    padding: 5rpx;
+  }
+  
+  .legend-item {
+    display: flex;
+    align-items: center;
+    width: 48%;
+    margin-bottom: 8rpx;
+    box-sizing: border-box;
+  }
+  
+  .legend-color {
+    width: 16rpx;
+    height: 16rpx;
+    border-radius: 50%;
+    margin-right: 10rpx;
+    flex-shrink: 0;
+  }
+  
+  .legend-name {
+    font-size: 24rpx;
+    color: #333;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .legend-value {
+    font-size: 24rpx;
+    color: #1890ff;
+    font-weight: bold;
+    flex-shrink: 0;
+    margin-left: 5rpx;
+  }
+  
+  /* 饼图颜色定义 */
+  .color-0 { background: #1890ff; }
+  .color-1 { background: #52c41a; }
+  .color-2 { background: #722ed1; }
+  .color-3 { background: #fa8c16; }
+  .color-4 { background: #eb2f96; }
+  .color-5 { background: #13c2c2; }
+  .color-6 { background: #f759ab; }
+  .color-7 { background: #9254de; }
+  
+  /* 周热度标签 */
+  .week-labels {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10rpx;
+  }
+  
+  .week-label {
+    font-size: 20rpx;
+    color: #666;
+    width: calc(100% / 7);
+    text-align: center;
+  }
+  
+  /* 连续打卡统计 */
+  .streak-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 12rpx;
+  }
+  
+  .streak-item {
+    text-align: center;
+    flex: 1;
+    padding: 5rpx;
+  }
+  
+  .streak-number {
+    font-size: 32rpx;
+    font-weight: bold;
+    color: #fa8c16;
+    display: block;
+    margin-bottom: 4rpx;
+  }
+  
+  .streak-label {
+    font-size: 20rpx;
+    color: #666;
+  }
+  
+  /* 数据表格 */
+  .data-table {
+    background: white;
+    border-radius: 20rpx;
+    overflow: hidden;
+    box-shadow: 0 8rpx 30rpx rgba(0, 0, 0, 0.1);
+    margin-bottom: 40rpx;
+  }
+  
+  .table-header {
+    background: linear-gradient(135deg, #1890ff, #52c41a);
+    padding: 20rpx 30rpx;
+    color: white;
+    text-align: center;
+  }
+  
+  .table-title {
+    font-size: 28rpx;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 6rpx;
+  }
+  
+  .table-total {
+    font-size: 22rpx;
+    opacity: 0.9;
+  }
+  
+  .table-body {
+    max-height: 450rpx;
+  }
+  
+  .table-row {
+    display: flex;
+    border-bottom: 1rpx solid #f0f0f0;
+    padding: 18rpx 30rpx;
+  }
+  
+  .table-row.header-row {
+    background: #fafafa;
+    font-weight: bold;
+  }
+  
+  .table-cell {
+    flex: 1;
+    font-size: 24rpx;
+    color: #333;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .table-row:not(.header-row) .table-cell:first-child {
+    text-align: left;
+    justify-content: flex-start;
+    color: #1890ff;
+    font-weight: 500;
+  }
+  
+  /* 加载状态 */
+  .loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.7);
+    padding: 40rpx 60rpx;
+    border-radius: 20rpx;
+    color: white;
+    z-index: 1000;
+  }
+  
+  .loading-text {
+    font-size: 30rpx;
+  }
+  
+  /* 无数据提示 */
+  .no-data {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #999;
+    font-size: 28rpx;
+  }
+  
+  /* 确保图表居中 */
+  .chart-wrapper canvas {
+    display: block;
+    margin: 0 auto;
+  }

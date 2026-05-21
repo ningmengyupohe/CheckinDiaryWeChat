@@ -1,0 +1,146 @@
+<!--pages/checkin/calendar-checkin/calendar-checkin.wxml-->
+<view class="calendar-page">
+  <!-- 头部区域 -->
+  <view class="header">
+    <view class="header-title">
+      <text class="title-text">打卡日历</text>
+      <text class="title-subtext">记录每个项目的打卡历程</text>
+    </view>
+  </view>
+
+  <!-- 项目选择下拉框 -->
+  <view class="filter-section">
+    <view class="filter-item">
+      <text class="filter-label">选择项目：</text>
+      <picker 
+        class="project-picker" 
+        range="{{projects}}" 
+        range-key="name" 
+        value="{{selectedProjectIndex}}" 
+        bindchange="onProjectChange">
+        <view class="picker-content">
+          <text class="picker-text">{{selectedProject.name || '全部项目'}}</text>
+          <text class="picker-icon">▼</text>
+        </view>
+      </picker>
+    </view>
+    
+    <!-- 时间筛选 -->
+    <view class="filter-item">
+      <text class="filter-label">选择时间：</text>
+      <picker 
+        class="date-picker" 
+        mode="date" 
+        fields="month" 
+        value="{{currentMonth}}" 
+        bindchange="onMonthChange">
+        <view class="picker-content">
+          <text class="picker-text">{{displayMonth}}</text>
+          <text class="picker-icon">📅</text>
+        </view>
+      </picker>
+    </view>
+  </view>
+
+  <!-- 统计卡片 -->
+  <view class="stats-card">
+    <view class="stats-row">
+      <view class="stat-item">
+        <text class="stat-number">{{stats.totalDays}}</text>
+        <text class="stat-label">打卡天数</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-number">{{stats.currentStreak}}</text>
+        <text class="stat-label">连续打卡</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-number">{{stats.maxStreak}}</text>
+        <text class="stat-label">最长连续</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-number">{{stats.completionRate}}%</text>
+        <text class="stat-label">完成率</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 日历区域 -->
+  <view class="calendar-container">
+    <view class="calendar-header">
+      <text class="week-day" wx:for="{{weekDays}}" wx:key="index">{{item}}</text>
+    </view>
+    
+    <view class="calendar-body">
+      <view 
+        class="calendar-day {{getDayClass(item)}}" 
+        wx:for="{{calendarDays}}" 
+        wx:key="index"
+        bindtap="onDayTap"
+        data-date="{{item.fullDate}}">
+        <text class="day-number">{{item.day}}</text>
+        <view class="day-indicators">
+          <view 
+            class="day-indicator {{project.color}}" 
+            wx:for="{{item.checkinProjects}}" 
+            wx:key="projectId"
+            wx:if="{{item.hasCheckin}}">
+          </view>
+        </view>
+        <text class="day-info" wx:if="{{item.hasCheckin && item.checkinCount > 0}}">
+          {{item.checkinCount}}
+        </text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 月份切换 -->
+  <view class="month-nav">
+    <view class="nav-btn" bindtap="prevMonth">
+      <text class="nav-icon">◀</text>
+      <text class="nav-text">上月</text>
+    </view>
+    <view class="current-month">
+      <text class="month-text">{{displayMonth}}</text>
+    </view>
+    <view class="nav-btn" bindtap="nextMonth">
+      <text class="nav-text">下月</text>
+      <text class="nav-icon">▶</text>
+    </view>
+  </view>
+
+  <!-- 详情列表 -->
+  <view class="detail-section" wx:if="{{selectedDate}}">
+    <view class="section-header">
+      <text class="section-title">{{selectedDate}} 打卡详情</text>
+      <text class="section-subtitle">共{{selectedDayCheckins.length}}条记录</text>
+    </view>
+    
+    <scroll-view class="detail-list" scroll-y>
+      <view class="detail-item" wx:for="{{selectedDayCheckins}}" wx:key="id">
+        <view class="detail-item-header">
+          <view class="project-badge {{item.projectColor || 'default'}}">
+            <text class="project-icon">●</text>
+            <text class="project-name">{{item.projectName}}</text>
+          </view>
+          <text class="checkin-time">{{item.time}}</text>
+        </view>
+        <text class="checkin-notes" wx:if="{{item.notes}}">{{item.notes}}</text>
+        <view class="detail-item-footer">
+          <text class="checkin-date">{{item.date}}</text>
+        </view>
+      </view>
+      
+      <view class="empty-tips" wx:if="{{selectedDayCheckins.length === 0}}">
+        <text class="empty-icon">📝</text>
+        <text class="empty-text">该日期没有打卡记录</text>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 无数据提示 -->
+  <view class="empty-state" wx:if="{{calendarDays.length === 0}}">
+    <text class="empty-icon">📅</text>
+    <text class="empty-title">暂无打卡记录</text>
+    <text class="empty-desc">开始打卡记录您每天的进步吧！</text>
+  </view>
+</view>

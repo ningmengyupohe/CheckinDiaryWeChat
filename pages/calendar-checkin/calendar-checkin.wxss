@@ -1,0 +1,406 @@
+/* pages/checkin/calendar-checkin/calendar-checkin.wxss */
+.calendar-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #94b1ff 0%, #355aff 100%);
+    padding-bottom: 40rpx;
+  }
+  
+  /* 头部样式 */
+  .header {
+    padding: 40rpx 30rpx 30rpx;
+    color: white;
+  }
+  
+  .header-title {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .title-text {
+    font-size: 48rpx;
+    font-weight: bold;
+    margin-bottom: 10rpx;
+  }
+  
+  .title-subtext {
+    font-size: 28rpx;
+    opacity: 0.9;
+  }
+  
+  /* 筛选区域 */
+  .filter-section {
+    background: white;
+    margin: 0 30rpx 20rpx;
+    border-radius: 20rpx;
+    padding: 30rpx;
+    box-shadow: 0 8rpx 30rpx rgba(0, 0, 0, 0.1);
+  }
+  
+  .filter-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20rpx;
+  }
+  
+  .filter-item:last-child {
+    margin-bottom: 0;
+  }
+  
+  .filter-label {
+    font-size: 28rpx;
+    color: #333;
+    font-weight: 500;
+    width: 150rpx;
+    flex-shrink: 0;
+  }
+  
+  .picker-content {
+    flex: 1;
+    height: 80rpx;
+    background: #f5f5f5;
+    border-radius: 12rpx;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30rpx;
+  }
+  
+  .picker-text {
+    font-size: 28rpx;
+    color: #333;
+  }
+  
+  .picker-icon {
+    font-size: 24rpx;
+    color: #666;
+  }
+  
+  /* 统计卡片 */
+  .stats-card {
+    background: white;
+    margin: 0 30rpx 20rpx;
+    border-radius: 20rpx;
+    padding: 30rpx;
+    box-shadow: 0 8rpx 30rpx rgba(0, 0, 0, 0.1);
+  }
+  
+  .stats-row {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .stat-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .stat-number {
+    font-size: 40rpx;
+    font-weight: bold;
+    color: #1890ff;
+    margin-bottom: 8rpx;
+  }
+  
+  .stat-label {
+    font-size: 24rpx;
+    color: #666;
+  }
+  
+  /* 日历容器 */
+  .calendar-container {
+    background: white;
+    margin: 0 30rpx;
+    border-radius: 20rpx;
+    overflow: hidden;
+    box-shadow: 0 8rpx 30rpx rgba(0, 0, 0, 0.1);
+  }
+  
+  .calendar-header {
+    display: flex;
+    background: linear-gradient(135deg, #1890ff, #52c41a);
+  }
+  
+  .week-day {
+    flex: 1;
+    text-align: center;
+    padding: 20rpx 0;
+    font-size: 28rpx;
+    font-weight: bold;
+    color: white;
+  }
+  
+  /* 日历主体 */
+  .calendar-body {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20rpx 0;
+  }
+  
+  .calendar-day {
+    width: calc(100% / 7);
+    height: 120rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10rpx;
+    margin: 5rpx 0;
+    position: relative;
+    transition: all 0.3s;
+  }
+  
+  .calendar-day.other-month {
+    opacity: 0.3;
+  }
+  
+  .calendar-day.today {
+    background: #e6f7ff;
+    border: 2rpx solid #1890ff;
+  }
+  
+  .calendar-day.has-checkin {
+    background: #f6ffed;
+    border: 2rpx solid #52c41a;
+  }
+  
+  .day-number {
+    font-size: 32rpx;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5rpx;
+  }
+  
+  .day-indicators {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5rpx;
+  }
+  
+  .day-indicator {
+    width: 12rpx;
+    height: 12rpx;
+    border-radius: 50%;
+    margin: 0 2rpx;
+  }
+  
+  .day-info {
+    font-size: 22rpx;
+    color: #1890ff;
+    font-weight: bold;
+  }
+  
+  /* 项目颜色类 */
+  .health-color { background: #52c41a; }
+  .learning-color { background: #1890ff; }
+  .work-color { background: #722ed1; }
+  .personal-color { background: #fa8c16; }
+  .life-color { background: #eb2f96; }
+  .default-color { background: #666; }
+  
+  /* 月份导航 */
+  .month-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 30rpx;
+    background: white;
+    border-radius: 20rpx;
+    padding: 20rpx 30rpx;
+    box-shadow: 0 8rpx 30rpx rgba(0, 0, 0, 0.1);
+  }
+  
+  .nav-btn {
+    display: flex;
+    align-items: center;
+    padding: 15rpx 30rpx;
+    border-radius: 10rpx;
+    background: #f5f5f5;
+    transition: all 0.3s;
+  }
+  
+  .nav-btn:active {
+    background: #e8e8e8;
+  }
+  
+  .nav-icon {
+    font-size: 24rpx;
+    color: #333;
+    margin: 0 10rpx;
+  }
+  
+  .nav-text {
+    font-size: 28rpx;
+    color: #333;
+  }
+  
+  .current-month {
+    font-size: 32rpx;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* 详情区域 */
+  .detail-section {
+    background: white;
+    margin: 30rpx;
+    border-radius: 20rpx;
+    overflow: hidden;
+    box-shadow: 0 8rpx 30rpx rgba(0, 0, 0, 0.1);
+  }
+  
+  .section-header {
+    padding: 30rpx;
+    border-bottom: 2rpx solid #f0f0f0;
+  }
+  
+  .section-title {
+    font-size: 32rpx;
+    font-weight: bold;
+    color: #333;
+    display: block;
+    margin-bottom: 10rpx;
+  }
+  
+  .section-subtitle {
+    font-size: 26rpx;
+    color: #666;
+  }
+  
+  .detail-list {
+    max-height: 600rpx;
+    padding: 30rpx;
+    width: 90%;
+  }
+  
+  .detail-item {
+    background: #fafafa;
+    border-radius: 15rpx;
+    padding: 25rpx;
+    margin-bottom: 20rpx;
+    border-left: 8rpx solid #1890ff;
+  }
+  
+  .detail-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15rpx;
+  }
+  
+  .project-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 8rpx 20rpx;
+    border-radius: 20rpx;
+    background: #e6f7ff;
+  }
+  
+  .project-icon {
+    font-size: 20rpx;
+    margin-right: 10rpx;
+  }
+  
+  .project-name {
+    font-size: 28rpx;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .checkin-time {
+    font-size: 28rpx;
+    color: #1890ff;
+    font-weight: bold;
+  }
+  
+  .checkin-notes {
+    font-size: 26rpx;
+    color: #666;
+    margin-bottom: 15rpx;
+    line-height: 1.5;
+  }
+  
+  .detail-item-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .checkin-date {
+    font-size: 26rpx;
+    color: #999;
+  }
+  
+  .action-buttons {
+    display: flex;
+  }
+  
+  .action-btn {
+    font-size: 26rpx;
+    padding: 8rpx 20rpx;
+    border-radius: 8rpx;
+    margin-left: 15rpx;
+    transition: all 0.3s;
+  }
+  
+  .edit-btn {
+    background: #e6f7ff;
+    color: #1890ff;
+  }
+  
+  .edit-btn:active {
+    background: #bae7ff;
+  }
+  
+  .delete-btn {
+    background: #fff1f0;
+    color: #ff4d4f;
+  }
+  
+  .delete-btn:active {
+    background: #ffccc7;
+  }
+  
+  /* 空状态样式 */
+  .empty-tips {
+    text-align: center;
+    padding: 60rpx 0;
+  }
+  
+  .empty-icon {
+    font-size: 80rpx;
+    display: block;
+    margin-bottom: 20rpx;
+    opacity: 0.3;
+  }
+  
+  .empty-text {
+    font-size: 28rpx;
+    color: #999;
+  }
+  
+  .empty-state {
+    text-align: center;
+    padding: 100rpx 30rpx;
+  }
+  
+  .empty-icon {
+    font-size: 120rpx;
+    display: block;
+    margin-bottom: 30rpx;
+    opacity: 0.5;
+  }
+  
+  .empty-title {
+    font-size: 36rpx;
+    color: #333;
+    margin-bottom: 15rpx;
+    display: block;
+  }
+  
+  .empty-desc {
+    font-size: 28rpx;
+    color: #666;
+    display: block;
+  }

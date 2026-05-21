@@ -1,0 +1,139 @@
+<!-- pages/project/project.wxml -->
+<view class="projects-container">
+  <!-- 头部 -->
+  <view class="header">
+    <view class="header-content">
+      <text class="header-title">我的打卡项目</text>
+      <text class="header-subtitle">管理您的多个打卡项目</text>
+    </view>
+  </view>
+
+  <!-- 项目列表 -->
+  <view class="content">
+    <view class="projects-list">
+      <block wx:for="{{projects}}" wx:key="id">
+        <view 
+          class="project-card"
+          data-id="{{item.id}}"
+          bindtap="goToProjectCheckin"
+          bindlongpress="onProjectLongPress"
+          data-name="{{item.name}}"
+        >
+          <view class="project-header" style="border-left-color: {{item.color}};">
+            <view class="project-info">
+              <view class="project-title-area">
+                <text class="project-icon">{{item.icon}}</text>
+                <text class="project-title">{{item.name}}</text>
+              </view>
+              <text class="project-desc">{{item.description || '暂无描述'}}</text>
+            </view>
+            <view class="project-actions">
+              <!-- 修复：使用catchtap阻止事件冒泡 -->
+              <text class="edit-btn" data-id="{{item.id}}" catchtap="editProject">编辑</text>
+            </view>
+          </view>
+          
+          <view class="project-stats">
+            <view class="stat-item">
+              <text class="stat-label">连续签到</text>
+              <text class="stat-value">{{item.stats.consecutiveDays}}天</text>
+            </view>
+            <view class="stat-item">
+              <text class="stat-label">总积分</text>
+              <text class="stat-value">{{item.stats.points}}</text>
+            </view>
+            <view class="stat-item">
+              <text class="stat-label">完成度</text>
+              <text class="stat-value">{{item.stats.completionRate}}%</text>
+            </view>
+          </view>
+          
+          <view class="project-footer">
+            <text class="footer-text">目标: {{item.targetDays}}天</text>
+            <text class="footer-text">已打卡: {{item.stats.totalDays}}天</text>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <!-- 空状态 -->
+    <view wx:if="{{projects.length === 0}}" class="empty-state">
+      <text class="empty-icon">📝</text>
+      <text class="empty-text">暂无打卡项目</text>
+      <text class="empty-tip">点击下方按钮创建第一个项目</text>
+    </view>
+  </view>
+
+  <!-- 创建项目按钮 -->
+  <view class="fab-container">
+    <view class="fab" bindtap="goToAddProject">
+      <text class="fab-icon">+</text>
+      <text class="fab-text">新建项目</text>
+    </view>
+  </view>
+
+  <!-- 编辑项目模态框 -->
+  <view wx:if="{{showEditModal}}" class="modal-overlay" bindtap="closeEditModal">
+    <view class="modal-content" catchtap="stopPropagation">
+      <view class="modal-header">
+        <text class="modal-title">编辑项目</text>
+        <text class="modal-close" bindtap="closeEditModal">×</text>
+      </view>
+      
+      <view class="modal-body">
+        <view class="form-group">
+          <text class="form-label">项目名称</text>
+          <input 
+            class="form-input" 
+            placeholder="请输入项目名称" 
+            value="{{editingProject ? editingProject.name : ''}}"
+            bindinput="onEditNameInput"
+            maxlength="20"
+          />
+        </view>
+        
+        <view class="form-group">
+          <text class="form-label">项目描述</text>
+          <input 
+            class="form-input" 
+            placeholder="请输入项目描述" 
+            value="{{editingProject ? editingProject.description : ''}}"
+            bindinput="onEditDescInput"
+            maxlength="50"
+          />
+        </view>
+        
+        <view class="form-group">
+          <text class="form-label">目标天数</text>
+          <input 
+            class="form-input" 
+            type="number" 
+            placeholder="请输入目标天数" 
+            value="{{editingProject ? editingProject.targetDays : ''}}"
+            bindinput="onEditTargetDaysInput"
+          />
+        </view>
+        
+        <view class="form-group">
+          <text class="form-label">选择颜色</text>
+          <view class="color-picker">
+            <block wx:for="{{['#1890ff', '#52c41a', '#fa8c16', '#f5222d', '#722ed1', '#13c2c2', '#eb2f96', '#faad14', '#a0d911', '#2f54eb']}}" wx:key="index">
+              <view 
+                class="color-option {{editingProject && editingProject.color === item ? 'selected' : ''}}"
+                style="background-color: {{item}}"
+                data-color="{{item}}"
+                bindtap="selectColor"
+              ></view>
+            </block>
+          </view>
+        </view>
+      </view>
+      
+      <view class="modal-footer">
+        <view class="btn btn-danger" bindtap="deleteEditProject">删除</view>
+        <view class="btn btn-secondary" bindtap="closeEditModal">取消</view>
+        <view class="btn btn-primary" bindtap="updateProject">保存</view>
+      </view>
+    </view>
+  </view>
+</view>

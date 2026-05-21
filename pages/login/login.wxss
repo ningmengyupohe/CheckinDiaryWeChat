@@ -1,0 +1,250 @@
+/* pages/login/login.wxss */
+.login-page {
+    min-height: 100vh;
+    background: #f5f5f5;
+  }
+  
+  /* 顶部背景 */
+  .header {
+    position: relative;
+    height: 280rpx;
+    overflow: hidden;
+  }
+  
+  .header-bg {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .header-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgb(140, 232, 255), rgb(19, 121, 255));
+  }
+  
+  .header-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+  }
+  
+  .welcome-text {
+    font-size: 36rpx;
+    font-weight: bold;
+    margin-bottom: 10rpx;
+  }
+  
+  .sub-text {
+    font-size: 28rpx;
+    opacity: 0.9;
+  }
+  
+  /* 表单容器 */
+  .form-container {
+    padding: 40rpx;
+    margin-top: -40rpx;
+    border-radius: 30rpx 30rpx 0 0;
+    background: white;
+    position: relative;
+  }
+  
+  /* 欢迎语 */
+  .welcome-section {
+    text-align: center;
+    margin-bottom: 60rpx;
+  }
+  
+  .app-logo {
+    width: 120rpx;
+    height: 120rpx;
+    border-radius: 24rpx;
+    margin-bottom: 20rpx;
+  }
+  
+  .app-title {
+    display: block;
+    font-size: 36rpx;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10rpx;
+  }
+  
+  .app-desc {
+    display: block;
+    font-size: 28rpx;
+    color: #666;
+  }
+  
+  /* 登录方法 */
+  .login-methods {
+    margin-bottom: 60rpx;
+  }
+  
+  .method-intro {
+    text-align: center;
+    margin-bottom: 40rpx;
+  }
+  
+  .intro-text {
+    font-size: 28rpx;
+    color: #666;
+    line-height: 1.5;
+  }
+  
+  /* 登录按钮 */
+  .login-btn {
+    width: 100%;
+    height: 88rpx;
+    border-radius: 44rpx;
+    font-size: 32rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    outline: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .btn-hover {
+    opacity: 0.9;
+  }
+  
+  .wechat-btn {
+    background: #07C160;
+    color: white;
+  }
+  
+  .btn-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .btn-icon {
+    width: 40rpx;
+    height: 40rpx;
+    margin-right: 20rpx;
+  }
+  
+  .btn-text {
+    font-size: 32rpx;
+    font-weight: 500;
+  }
+  
+  /* 登录提示 */
+  .login-tips {
+    text-align: center;
+    margin-top: 30rpx;
+  }
+  
+  .tip-text {
+    font-size: 24rpx;
+    color: #999;
+  }
+  
+  .tip-link {
+    font-size: 24rpx;
+    color: #07C160;
+    margin: 0 5rpx;
+  }
+  
+  /* 功能列表 */
+  .feature-list {
+    background: #f8f9fa;
+    border-radius: 20rpx;
+    padding: 30rpx;
+    margin-bottom: 40rpx;
+  }
+  
+  .feature-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30rpx;
+  }
+  
+  .feature-item:last-child {
+    margin-bottom: 0;
+  }
+  
+  .feature-icon {
+    width: 60rpx;
+    height: 60rpx;
+    margin-right: 20rpx;
+  }
+  
+  .feature-info {
+    flex: 1;
+  }
+  
+  .feature-title {
+    display: block;
+    font-size: 28rpx;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 5rpx;
+  }
+  
+  .feature-desc {
+    display: block;
+    font-size: 24rpx;
+    color: #666;
+  }
+  
+  /* 底部信息 */
+  .bottom-info {
+    text-align: center;
+    padding-top: 30rpx;
+    border-top: 1rpx solid #eee;
+  }
+  
+  .version-info, .contact-info {
+    display: block;
+    font-size: 24rpx;
+    color: #999;
+    margin-bottom: 10rpx;
+  }
+  
+  /* 加载遮罩 */
+  .loading-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .loading-content {
+    background: white;
+    padding: 60rpx 80rpx;
+    border-radius: 20rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .loading-icon {
+    width: 80rpx;
+    height: 80rpx;
+    margin-bottom: 20rpx;
+  }
+  
+  .loading-text {
+    font-size: 28rpx;
+    color: #333;
+  }

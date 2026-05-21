@@ -1,0 +1,200 @@
+/* pages/operation/operation.wxss */
+.operation-page {
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    padding-bottom: 200rpx;
+  }
+  
+  .header {
+    background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
+    color: white;
+    padding: 30rpx;
+    margin: 0 20rpx;
+    border-radius: 20rpx;
+    margin-top: 10rpx;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.1);
+  }
+  
+  .header-content {
+    text-align: center;
+  }
+  
+  .header-title {
+    font-size: 36rpx;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10rpx;
+  }
+  
+  .header-subtitle {
+    font-size: 24rpx;
+    opacity: 0.9;
+  }
+  
+  .content {
+    padding: 20rpx;
+  }
+  
+  .card {
+    background: white;
+    border-radius: 16rpx;
+    padding: 30rpx;
+    margin-bottom: 20rpx;
+    box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.08);
+  }
+  
+  /* 模板项目入口样式 - 重点修改 */
+  .template-entry {
+    margin-bottom: 20rpx;
+    background: linear-gradient(135deg, #f8fbff 0%, #f0f7ff 100%);
+    border: 1rpx solid #e6f7ff;
+  }
+  
+  .template-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 10rpx 0;
+  }
+  
+  .template-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin-right: 30rpx;
+  }
+  
+  .template-title {
+    font-size: 32rpx;
+    font-weight: bold;
+    color: #1890ff;
+    margin-bottom: 12rpx;
+    line-height: 1.2;
+  }
+  
+  /* 新的两行文字样式 */
+  .template-subtitle-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4rpx;
+  }
+  
+  .template-subtitle-line {
+    font-size: 24rpx;
+    color: #666;
+    line-height: 1.4;
+  }
+  
+  .btn-small {
+    padding: 16rpx 32rpx;
+    font-size: 26rpx;
+    white-space: nowrap;
+    min-width: 140rpx;
+    border-radius: 20rpx;
+    background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
+    color: white;
+    box-shadow: 0 2rpx 8rpx rgba(24, 144, 255, 0.3);
+    flex-shrink: 0;
+    margin-top: 8rpx;
+  }
+  
+  .btn-small:active {
+    transform: scale(0.98);
+    box-shadow: 0 1rpx 4rpx rgba(24, 144, 255, 0.3);
+  }
+  
+  /* 其他原有样式保持不变 */
+  .card-title {
+    font-size: 32rpx;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 24rpx;
+  }
+  
+  .form-container {
+    width: 100%;
+  }
+  
+  .form-group {
+    margin-bottom: 30rpx;
+  }
+  
+  .form-label {
+    display: block;
+    font-size: 28rpx;
+    color: #333;
+    margin-bottom: 16rpx;
+    font-weight: 500;
+  }
+  
+  .form-input {
+    width: 100%;
+    padding: 20rpx 30rpx;
+    border: 1rpx solid #e0e0e0;
+    border-radius: 12rpx;
+    font-size: 28rpx;
+    background: white;
+    box-sizing: border-box;
+    min-height: 80rpx;
+    line-height: 1.4;
+  }
+  
+  .form-input::placeholder {
+    color: #999;
+    font-size: 28rpx;
+  }
+  
+  .picker-input {
+    color: #333;
+    display: flex;
+    align-items: center;
+    min-height: 80rpx;
+    font-size: 28rpx;
+    line-height: 1.4;
+    padding: 20rpx 30rpx;
+    border: 1rpx solid #e0e0e0;
+    border-radius: 12rpx;
+    background: white;
+  }
+  
+  .textarea {
+    height: 160rpx;
+    padding: 20rpx 30rpx;
+    line-height: 1.5;
+    resize: none;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .char-count {
+    text-align: right;
+    font-size: 24rpx;
+    color: #adb5bd;
+    margin-top: 8rpx;
+  }
+  
+  .btn {
+    width: 100%;
+    padding: 24rpx;
+    border-radius: 12rpx;
+    font-size: 32rpx;
+    font-weight: 500;
+    border: none;
+    margin-top: 20rpx;
+  }
+  
+  .btn-primary {
+    background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
+    color: white;
+  }
+  
+  .btn-primary:active {
+    opacity: 0.8;
+  }
+  
+  .btn-primary[disabled] {
+    background: #ccc;
+    color: #999;
+  }

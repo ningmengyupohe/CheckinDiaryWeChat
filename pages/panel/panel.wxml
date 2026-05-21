@@ -1,0 +1,324 @@
+<!--pages/panel/panel.wxml-->
+<view class="panel-page">
+  <!-- 轮播图区域 -->
+  <swiper class="swiper-container" indicator-dots="{{true}}" autoplay="{{true}}" interval="3000">
+    <swiper-item wx:for="{{swiperImages}}" wx:key="index">
+      <image src="{{item}}"></image>
+    </swiper-item>
+  </swiper>
+
+  <!-- 固定在右上角的音乐控制图标 -->
+  <view class="music-control-icon" bindtap="showMusicPanel">
+    <text class="music-icon">🎵</text>
+    <view class="music-badge" wx:if="{{!isPlaying}}">❚❚</view>
+  </view>
+
+  <view class="header">
+    <view class="header-content">
+      <text class="header-title">{{headerTitle}}</text>
+      <text class="header-subtitle">{{headerSubtitle}}</text>
+    </view>
+  </view>
+
+  <!-- 视频区域 - 使用条件渲染 -->
+  <view class="video-container" wx:if="{{showVideo}}">
+    <video src="{{videoSrc}}" object-fit="contain" controls></video>
+    <view class="video-title">标题：{{videoTitle}}</view>
+    <view class="video-time">拍摄日期：{{videoTime}}</view>
+  </view>
+
+  <!-- 打卡数据统计 -->
+  <view class="content">
+    <!-- 本周打卡数据 -->
+    <view class="card">
+      <view class="card-title">
+        <text>本周打卡数据</text>
+        <text class="date-range">{{weekDateRange}}</text>
+      </view>
+      <view class="chart-container">
+        <view class="week-chart">
+          <view class="chart-day" wx:for="{{weekData}}" wx:key="day">
+            <view class="chart-bar-container">
+              <view class="chart-bar" style="height: {{item.percentage}}"></view>
+            </view>
+            <text class="chart-label">{{item.day}}</text>
+            <text class="chart-value">{{item.value}}/{{item.total}}</text>
+          </view>
+        </view>
+        <view class="chart-stats">
+          <view class="stat-item">
+            <text class="stat-number">{{weekStats.completed}}</text>
+            <text class="stat-label">完成数</text>
+          </view>
+          <view class="stat-item">
+            <text class="stat-number">{{weekStats.rate}}%</text>
+            <text class="stat-label">完成率</text>
+          </view>
+          <view class="stat-item">
+            <text class="stat-number">{{weekStats.streak}}</text>
+            <text class="stat-label">连续天数</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 月度数据 -->
+    <view class="card">
+      <view class="card-title">
+        <text>本月打卡数据</text>
+        <text class="date-range">{{monthDateRange}}</text>
+      </view>
+      <view class="month-stats">
+        <view class="month-stat-row">
+          <view class="month-stat">
+            <text class="month-stat-number">{{monthStats.total}}</text>
+            <text class="month-stat-label">总打卡数</text>
+          </view>
+          <view class="month-stat">
+            <text class="month-stat-number">{{monthStats.rate}}%</text>
+            <text class="month-stat-label">完成率</text>
+          </view>
+        </view>
+        <view class="month-stat-row">
+          <view class="month-stat">
+            <text class="month-stat-number">{{monthStats.perfect}}</text>
+            <text class="month-stat-label">全勤天数</text>
+          </view>
+          <view class="month-stat">
+            <text class="month-stat-number">{{monthStats.avg}}</text>
+            <text class="month-stat-label">日均打卡</text>
+          </view>
+        </view>
+      </view>
+      <view class="progress-grid">
+        <view class="progress-item {{item.completed ? 'completed' : 'missed'}}" 
+              wx:for="{{monthProgress}}" 
+              wx:key="day"
+              wx:for-item="item"
+              wx:for-index="index">
+          <text class="progress-day">{{item.day}}</text>
+          <text class="progress-dot">●</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 任务列表 - 条件渲染 -->
+<view class="task-list" wx:if="{{showTaskListFlag}}">
+  <view class="task-list-header">
+    <text>项目打卡列表</text>
+    <text class="task-count">({{completedProjects}}/{{totalProjects}})</text>
+    <view class="close-task-list" bindtap="hideTaskList">×</view>
+  </view>
+  <view class="task-item" wx:for="{{projects}}" wx:key="id" bindtap="toggleTask" data-id="{{item.id}}">
+    <view class="task-checkbox {{item.completed ? 'completed' : ''}}">
+      {{item.completed ? '✓' : ''}}
+    </view>
+    <view class="task-info">
+      <text class="task-name">{{item.name}}</text>
+      <text class="task-description">{{item.description}}</text>
+      <text class="task-time">{{item.checkinTime || '待打卡'}}</text>
+    </view>
+    <view class="task-status {{item.completed ? 'completed' : ''}}">
+      {{item.completed ? '已打卡' : '未打卡'}}
+    </view>
+  </view>
+  <view class="task-list-footer" wx:if="{{projects.length === 0}}">
+    <text class="empty-tips">暂无项目，请先添加项目</text>
+  </view>
+</view>
+
+    <!-- 重新设计的九宫格区域 -->
+    <view class="grids">
+      <!-- 进度分析（整合原多个功能） -->
+      <view class="item" bindtap="showProgressAnalysis">
+        <view class="item-icon analysis-icon">
+          <text class="icon-text">📊</text>
+        </view>
+        <text class="item-text">数据分析中心</text>
+        <text class="item-subtext">整合分析</text>
+      </view>
+      
+      <!-- 打卡记录（只保留查看功能） -->
+      <view class="item" bindtap="goToCheckinRecords">
+        <view class="item-icon checkin-icon">
+          <text class="icon-text">📋</text>
+        </view>
+        <text class="item-text">打卡记录</text>
+        <text class="item-subtext">历史查看</text>
+      </view>
+      
+      <!-- 一键完成 -->
+      <view class="item" bindtap="quickCompleteAll">
+        <view class="item-icon complete-icon">
+          <text class="icon-text">🚀</text>
+        </view>
+        <text class="item-text">一键完成</text>
+        <text class="item-subtext">今日全打卡</text>
+      </view>
+      
+      <!-- 任务管理 -->
+      <view class="item" bindtap="showTaskList">
+        <view class="item-icon task-icon">
+            <text class="icon-text">📋</text>
+            <view class="icon-badge" wx:if="{{totalProjects > 0}}">
+                <text class="badge-text">{{totalProjects}}</text>
+            </view>
+        </view>
+        <text class="item-text">任务管理</text>
+        <text class="item-subtext">待办任务</text>
+      </view>
+      
+      <!-- 成就徽章 -->
+      <view class="item" bindtap="viewBadges">
+        <view class="item-icon badge-icon">
+          <text class="icon-text">🏆</text>
+        </view>
+        <text class="item-text">成就徽章</text>
+        <text class="item-subtext">我的荣誉</text>
+      </view>
+      
+      <!-- 设置中心 -->
+      <view class="item" bindtap="goToSettings">
+        <view class="item-icon settings-icon">
+          <text class="icon-text">⚙️</text>
+        </view>
+        <text class="item-text">设置中心</text>
+        <text class="item-subtext">个性化</text>
+      </view>
+      
+      <!-- 项目列表 -->
+      <view class="item" bindtap="goToProjects">
+        <view class="item-icon project-icon">
+          <text class="icon-text">📁</text>
+        </view>
+        <text class="item-text">项目管理</text>
+        <text class="item-subtext">多项目</text>
+      </view>
+      
+      <!-- 天气图表 -->
+      <view class="item" bindtap="goToWeather">
+        <view class="item-icon weather-icon">
+          <text class="icon-text">🌤️</text>
+        </view>
+        <text class="item-text">天气图表</text>
+        <text class="item-subtext">查看趋势</text>
+      </view>
+      
+      <!-- 帮助中心 -->
+      <view class="item" bindtap="showHelp">
+        <view class="item-icon help-icon">
+          <text class="icon-text">❓</text>
+        </view>
+        <text class="item-text">帮助中心</text>
+        <text class="item-subtext">使用指南</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 音乐控制面板弹窗 -->
+  <view class="music-panel-mask" wx:if="{{showMusicPanel}}" bindtap="hideMusicPanel">
+    <view class="music-panel" catchtap="stopPropagation">
+      <!-- 面板头部 -->
+      <view class="music-panel-header">
+        <text class="panel-title">背景音乐</text>
+        <text class="panel-close" bindtap="hideMusicPanel">✕</text>
+      </view>
+      
+      <!-- 当前播放信息 -->
+      <view class="current-music-info">
+          <view class="music-cover">
+              <text class="cover-icon">🎵</text>
+          </view>
+          <view class="music-details">
+              <text class="music-name">{{musicList[currentMusicIndex].name}}</text>
+              <text class="music-artist">{{musicList[currentMusicIndex].artist}}</text>
+              <text class="music-status">{{isPlaying ? '播放中' : '已暂停'}}</text>
+          </view>
+      </view>
+      
+      <!-- 进度条 -->
+      <view class="music-progress">
+        <text class="time-text">{{currentTime}}</text>
+        <slider class="progress-slider" value="{{musicProgress}}" min="0" max="100" activeColor="#1890ff" 
+                backgroundColor="#e8e8e8" block-color="#1890ff" block-size="20" 
+                bindchanging="onProgressChanging"/>
+        <text class="time-text">{{duration}}</text>
+      </view>
+      
+      <!-- 控制区域 -->
+      <view class="control-section">
+        <!-- 左侧：音量控制 -->
+        <view class="volume-section">
+          <text class="section-label">音量控制</text>
+          <view class="volume-control">
+            <text class="volume-icon">🔊</text>
+            <slider class="volume-slider" value="{{volume}}" min="0" max="100" step="5" 
+                    activeColor="#52c41a" backgroundColor="#f0f0f0" 
+                    block-color="#52c41a" block-size="24" show-value="{{true}}"
+                    bindchange="onVolumeChange"/>
+          </view>
+        </view>
+        
+        <!-- 中间：控制按钮 -->
+        <view class="playback-controls">
+          <view class="control-btn prev-btn" bindtap="playPrevMusic">
+            <text class="btn-icon">⏮</text>
+          </view>
+          <view class="control-btn play-pause-btn" bindtap="toggleMusicPlay">
+            <text class="btn-icon">{{isPlaying ? '⏸' : '▶'}}</text>
+          </view>
+          <view class="control-btn next-btn" bindtap="playNextMusic">
+            <text class="btn-icon">⏭</text>
+          </view>
+        </view>
+        
+        <!-- 右侧：列表控制 -->
+        <view class="list-control-section">
+          <text class="section-label">列表控制</text>
+          <view class="list-control-buttons">
+            <view class="control-btn {{showSongList ? 'active' : ''}}" bindtap="toggleSongList">
+              <text class="btn-icon">{{showSongList ? '📋' : '🎵'}}</text>
+            </view>
+            <view class="control-btn" bindtap="toggleRandomPlay">
+              <text class="btn-icon {{isRandom ? 'active' : ''}}">🔀</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      
+      <!-- 歌曲列表 - 可折叠 -->
+      <view class="music-list-section" wx:if="{{showSongList}}">
+        <view class="section-header">
+          <text class="section-title">歌曲列表</text>
+          <text class="song-count">共{{musicList.length}}首</text>
+          <view class="collapse-btn" bindtap="toggleSongList">
+            <text class="collapse-icon">▲</text>
+          </view>
+        </view>
+        <scroll-view class="song-list" scroll-y>
+          <view class="song-item {{currentMusicIndex === index ? 'active' : ''}}" 
+                wx:for="{{musicList}}" 
+                wx:key="id"
+                bindtap="selectMusic"
+                data-index="{{index}}">
+            <view class="song-number">
+              <text class="number">{{index + 1}}</text>
+              <text class="playing-indicator" wx:if="{{currentMusicIndex === index}}">●</text>
+            </view>
+            <view class="song-info">
+              <text class="song-name">{{item.name}}</text>
+              <text class="song-artist">{{item.artist}}</text>
+            </view>
+            <view class="song-duration">
+              <text class="duration-text">2:30</text>
+            </view>
+            <view class="song-status">
+              <text class="playing-icon" wx:if="{{currentMusicIndex === index && isPlaying}}">▶</text>
+              <text class="playing-icon paused" wx:if="{{currentMusicIndex === index && !isPlaying}}">❚❚</text>
+            </view>
+          </view>
+        </scroll-view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,289 @@
+/* pages/feedback/feedback.wxss */
+/* 错误状态样式 */
+.form-input.error {
+    border-color: #ff4d4f !important;
+    background-color: #fff2f0;
+  }
+  
+  .error-tip {
+    color: #ff4d4f;
+    font-size: 24rpx;
+    margin-top: 8rpx;
+    display: flex;
+    align-items: center;
+  }
+  
+  .error-tip::before {
+    content: "!";
+    width: 24rpx;
+    height: 24rpx;
+    background: #ff4d4f;
+    color: white;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20rpx;
+    margin-right: 8rpx;
+  }
+  
+  /* 其他样式保持不变 */
+  .feedback-page {
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    padding-bottom: 100rpx;
+  }
+  
+  .header {
+    background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
+    color: white;
+    padding: 30rpx;
+    margin: 0 20rpx;
+    border-radius: 20rpx;
+    margin-top: 10rpx;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.1);
+  }
+  
+  .header-content {
+    text-align: center;
+  }
+  
+  .header-title {
+    font-size: 36rpx;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10rpx;
+  }
+  
+  .header-subtitle {
+    font-size: 24rpx;
+    opacity: 0.9;
+  }
+  
+  .content {
+    padding: 20rpx;
+  }
+  
+  .card {
+    background: white;
+    border-radius: 16rpx;
+    padding: 30rpx;
+    margin-bottom: 20rpx;
+    box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.08);
+  }
+  
+  .form-group {
+    margin-bottom: 0;
+  }
+  
+  .form-label {
+    display: block;
+    font-size: 30rpx;
+    color: #333;
+    margin-bottom: 20rpx;
+    font-weight: 500;
+  }
+  
+  .form-label.required::after {
+    content: " *";
+    color: #ff4d4f;
+  }
+  
+  .form-input {
+    width: 100%;
+    padding: 24rpx 30rpx;
+    border: 1rpx solid #e0e0e0;
+    border-radius: 12rpx;
+    font-size: 28rpx;
+    background: white;
+    box-sizing: border-box;
+    min-height: 80rpx;
+    line-height: 1.4;
+    transition: all 0.3s ease;
+  }
+  
+  .form-input:focus {
+    border-color: #1890ff;
+  }
+  
+  .form-input::placeholder {
+    color: #999;
+    font-size: 28rpx;
+  }
+  
+  .picker-input {
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 80rpx;
+    font-size: 28rpx;
+    line-height: 1.4;
+    padding: 24rpx 30rpx;
+    border: 1rpx solid #e0e0e0;
+    border-radius: 12rpx;
+    background: white;
+    box-sizing: border-box;
+  }
+  
+  .picker-input.placeholder {
+    color: #999;
+  }
+  
+  .picker-arrow {
+    color: #999;
+    font-size: 24rpx;
+    margin-left: 10rpx;
+    transition: transform 0.3s ease;
+  }
+  
+  .textarea {
+    height: 240rpx;
+    padding: 24rpx 30rpx;
+    line-height: 1.5;
+    resize: none;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .char-count {
+    text-align: right;
+    font-size: 24rpx;
+    color: #adb5bd;
+    margin-top: 8rpx;
+  }
+  
+  .form-tip {
+    font-size: 24rpx;
+    color: #666;
+    margin-top: 16rpx;
+    line-height: 1.4;
+  }
+  
+  /* 文件上传样式 */
+  .upload-container {
+    margin-top: 10rpx;
+  }
+  
+  .upload-tip {
+    font-size: 24rpx;
+    color: #666;
+    margin-bottom: 20rpx;
+  }
+  
+  .upload-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20rpx;
+  }
+  
+  .upload-item {
+    position: relative;
+    width: 160rpx;
+    height: 160rpx;
+    border-radius: 12rpx;
+    overflow: hidden;
+    border: 1rpx solid #e0e0e0;
+  }
+  
+  .file-preview {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .file-remove {
+    position: absolute;
+    top: 8rpx;
+    right: 8rpx;
+    width: 36rpx;
+    height: 36rpx;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24rpx;
+  }
+  
+  .upload-btn {
+    width: 160rpx;
+    height: 160rpx;
+    border: 2rpx dashed #e0e0e0;
+    border-radius: 12rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #fafafa;
+    transition: all 0.3s ease;
+  }
+  
+  .upload-btn:active {
+    background: #f0f0f0;
+    border-color: #1890ff;
+  }
+  
+  .upload-btn.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  
+  .upload-icon {
+    font-size: 48rpx;
+    color: #999;
+    margin-bottom: 10rpx;
+  }
+  
+  .upload-text {
+    font-size: 24rpx;
+    color: #666;
+  }
+  
+  /* 提交按钮 */
+  .submit-btn {
+    width: 100%;
+    height: 100rpx;
+    border: none;
+    border-radius: 50rpx;
+    font-size: 32rpx;
+    font-weight: 600;
+    background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
+    color: white;
+    margin-top: 40rpx;
+    box-shadow: 0 8rpx 25rpx rgba(24, 144, 255, 0.3);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  .submit-btn:active {
+    transform: translateY(2rpx);
+    box-shadow: 0 4rpx 12rpx rgba(24, 144, 255, 0.3);
+  }
+  
+  .btn-text {
+    font-weight: 600;
+    letter-spacing: 1rpx;
+  }
+  
+  .btn-loading {
+    font-size: 28rpx;
+  }
+  
+  /* 必填项提示 */
+  .required-tip {
+    text-align: center;
+    margin-top: 20rpx;
+    font-size: 24rpx;
+    color: #666;
+  }
+  
+  .required-mark {
+    color: #ff4d4f;
+    margin-right: 8rpx;
+  }

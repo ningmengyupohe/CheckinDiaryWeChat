@@ -1,0 +1,457 @@
+/* pages/weather/weather.wxss */
+
+/* 页面基础样式 - 蓝色主题 */
+.weather-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #b7c8ff 0%, #096dd9 100%);
+    padding: 20rpx 20rpx 40rpx;
+  }
+  
+  /* 搜索区域 */
+  .search-section {
+    margin-bottom: 30rpx;
+  }
+  
+  .search-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 16rpx;
+    padding: 30rpx;
+    box-shadow: 0 4rpx 12rpx rgba(24, 144, 255, 0.2);
+    border: 1rpx solid #e8f4ff;
+  }
+  
+  /* 搜索框 */
+  .search-box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30rpx;
+  }
+  
+  .search-input {
+    flex: 1;
+    height: 80rpx;
+    background: #f8faff;
+    border-radius: 40rpx;
+    padding: 0 32rpx;
+    font-size: 28rpx;
+    color: #333;
+    border: 2rpx solid #d9e7ff;
+    box-sizing: border-box;
+  }
+  
+  .search-input:focus {
+    border-color: #1890ff;
+    background: #ffffff;
+    box-shadow: 0 0 0 2rpx rgba(24, 144, 255, 0.1);
+  }
+  
+  .placeholder {
+    color: #999;
+  }
+  
+  /* 搜索按钮 */
+  .search-btn {
+    width: 160rpx;
+    height: 80rpx;
+    background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
+    border-radius: 40rpx;
+    margin-left: 20rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4rpx 12rpx rgba(24, 144, 255, 0.3);
+    cursor: pointer;
+  }
+  
+  .search-icon {
+    font-size: 28rpx;
+    color: white;
+    margin-right: 8rpx;
+  }
+  
+  .search-text {
+    font-size: 28rpx;
+    color: white;
+    font-weight: 500;
+    line-height: 1;
+  }
+  
+  .common-cities {
+    margin-top: 10rpx;
+  }
+  
+  .cities-label {
+    font-size: 26rpx;
+    color: #666;
+    margin-bottom: 20rpx;
+    display: block;
+    font-weight: 500;
+  }
+  
+  /* 关键修改：确保父容器正确布局 */
+  .city-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15rpx 20rpx;
+    align-items: center;  /* 这很重要！ */
+    justify-content: flex-start;
+    width: 100%;
+  }
+  
+  /* 关键：text 元素的特殊居中处理 */
+  .city-tag {
+    background: #e8f4ff;
+    border-radius: 30rpx;
+    font-size: 26rpx;
+    color: #1890ff;
+    font-weight: 500;
+    border: 1rpx solid #bae7ff;
+    
+    /* 方案2：使用固定padding */
+    display: inline-block;
+    padding: 16rpx 24rpx;  /* 增加垂直padding */
+    text-align: center;
+    min-width: 100rpx;
+    margin: 2rpx;
+    box-sizing: border-box;
+    line-height: 0.5;  /* 正常行高 */
+  }
+  
+  /* 默认提示 */
+  .default-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20rpx;
+    padding: 80rpx 40rpx;
+    text-align: center;
+    box-shadow: 0 8rpx 24rpx rgba(24, 144, 255, 0.1);
+    border: 1rpx solid #e8f4ff;
+    margin-top: 30rpx;
+  }
+  
+  .default-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .default-icon {
+    font-size: 100rpx;
+    margin-bottom: 30rpx;
+    color: #1890ff;
+  }
+  
+  .default-title {
+    font-size: 36rpx;
+    font-weight: bold;
+    color: #1890ff;
+    margin-bottom: 20rpx;
+  }
+  
+  .default-desc {
+    font-size: 28rpx;
+    color: #666;
+    line-height: 1.5;
+  }
+  
+  /* 加载状态 */
+  .loading-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 16rpx;
+    padding: 120rpx 40rpx;
+    text-align: center;
+    margin-top: 30rpx;
+    box-shadow: 0 8rpx 24rpx rgba(24, 144, 255, 0.1);
+    border: 1rpx solid #e8f4ff;
+  }
+  
+  .loading-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .loading-spinner {
+    width: 80rpx;
+    height: 80rpx;
+    border: 6rpx solid #e6f7ff;
+    border-top: 6rpx solid #1890ff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 30rpx;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .loading-text {
+    font-size: 28rpx;
+    color: #1890ff;
+    font-weight: 500;
+  }
+  
+  /* 错误提示 */
+  .error-container {
+    background: #fff2f0;
+    border: 1rpx solid #ffccc7;
+    border-radius: 12rpx;
+    padding: 40rpx 30rpx;
+    margin-top: 30rpx;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 2rpx 8rpx rgba(255, 77, 79, 0.1);
+  }
+  
+  .error-icon {
+    font-size: 50rpx;
+    margin-bottom: 20rpx;
+    color: #ff4d4f;
+  }
+  
+  .error-text {
+    color: #ff4d4f;
+    font-size: 28rpx;
+    font-weight: 500;
+  }
+  
+  /* 天气信息容器 */
+  .weather-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20rpx;
+    padding: 40rpx;
+    margin-top: 30rpx;
+    box-shadow: 0 8rpx 24rpx rgba(24, 144, 255, 0.15);
+    border: 1rpx solid #e8f4ff;
+  }
+  
+  /* 城市和日期 */
+  .location-header {
+    text-align: center;
+    margin-bottom: 40rpx;
+    padding-bottom: 30rpx;
+    border-bottom: 1rpx solid #f0f5ff;
+  }
+  
+  .location-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .city-name {
+    font-size: 48rpx;
+    font-weight: bold;
+    color: #1890ff;
+    margin-bottom: 10rpx;
+  }
+  
+  .date {
+    font-size: 28rpx;
+    color: #666;
+    font-weight: 500;
+  }
+  
+  /* 主要天气信息 */
+  .weather-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40rpx;
+  }
+  
+  .weather-icon-container {
+    margin-right: 30rpx;
+  }
+  
+  .weather-icon {
+    font-size: 120rpx;
+  }
+  
+  .temp-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .current-temp {
+    font-size: 80rpx;
+    font-weight: bold;
+    color: #1890ff;
+    line-height: 1.2;
+  }
+  
+  .weather-desc {
+    font-size: 32rpx;
+    color: #666;
+    font-weight: 500;
+  }
+  
+  /* 温度范围 */
+  .temp-range {
+    display: flex;
+    justify-content: center;
+    gap: 60rpx;
+    margin-bottom: 50rpx;
+  }
+  
+  .high-temp-container,
+  .low-temp-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .temp-label {
+    font-size: 26rpx;
+    color: #999;
+    margin-bottom: 10rpx;
+  }
+  
+  .high-temp,
+  .low-temp {
+    font-size: 36rpx;
+    font-weight: bold;
+    padding: 15rpx 30rpx;
+    border-radius: 30rpx;
+    min-width: 120rpx;
+    text-align: center;
+  }
+  
+  .high-temp {
+    background: linear-gradient(135deg, #ff7875 0%, #ff4d4f 100%);
+    color: white;
+  }
+  
+  .low-temp {
+    background: linear-gradient(135deg, #69c0ff 0%, #1890ff 100%);
+    color: white;
+  }
+  
+  /* 详细信息卡片 */
+  .detail-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20rpx;
+    margin-bottom: 50rpx;
+  }
+  
+  .detail-card {
+    background: #f8faff;
+    border-radius: 16rpx;
+    padding: 30rpx 20rpx;
+    text-align: center;
+    border: 1rpx solid #e8f4ff;
+  }
+  
+  .card-icon {
+    font-size: 48rpx;
+    margin-bottom: 15rpx;
+    display: block;
+  }
+  
+  .card-label {
+    font-size: 24rpx;
+    color: #999;
+    margin-bottom: 8rpx;
+    display: block;
+    font-weight: 500;
+  }
+  
+  .card-value {
+    font-size: 36rpx;
+    font-weight: bold;
+    color: #1890ff;
+    display: block;
+    line-height: 1.3;
+  }
+  
+  /* 天气提示 */
+  .weather-tips {
+    background: linear-gradient(135deg, #e6f7ff 0%, #bae7ff 100%);
+    border-left: 8rpx solid #1890ff;
+    padding: 30rpx;
+    border-radius: 12rpx;
+    margin-bottom: 40rpx;
+  }
+  
+  .tips-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15rpx;
+  }
+  
+  .tips-icon {
+    font-size: 28rpx;
+    margin-right: 10rpx;
+    color: #1890ff;
+  }
+  
+  .tips-title {
+    font-size: 30rpx;
+    font-weight: bold;
+    color: #1890ff;
+  }
+  
+  .tips-content {
+    font-size: 28rpx;
+    color: #333;
+    line-height: 1.5;
+    font-weight: 500;
+  }
+  
+  /* 空气质量 */
+  .air-quality {
+    background: linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%);
+    border: 1rpx solid #b7eb8f;
+    padding: 30rpx;
+    border-radius: 16rpx;
+  }
+  
+  .air-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20rpx;
+  }
+  
+  .air-icon {
+    font-size: 28rpx;
+    margin-right: 10rpx;
+    color: #52c41a;
+  }
+  
+  .air-title {
+    font-size: 30rpx;
+    font-weight: bold;
+    color: #52c41a;
+  }
+  
+  .air-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15rpx;
+  }
+  
+  .air-level {
+    font-size: 40rpx;
+    font-weight: bold;
+    color: #52c41a;
+  }
+  
+  .air-index {
+    font-size: 28rpx;
+    color: #666;
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 8rpx 16rpx;
+    border-radius: 20rpx;
+  }
+  
+  .air-tips {
+    font-size: 28rpx;
+    color: #666;
+    line-height: 1.4;
+    font-weight: 500;
+  }

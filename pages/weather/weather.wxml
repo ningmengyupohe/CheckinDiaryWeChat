@@ -1,0 +1,145 @@
+<!-- pages/weather/weather.wxml -->
+<view class="weather-page">
+  <!-- 搜索区域 -->
+  <view class="search-section">
+    <view class="search-container">
+      <view class="search-box">
+        <input 
+          class="search-input" 
+          placeholder="请输入城市名称，如：北京" 
+          value="{{cityName}}"
+          bindinput="onCityInput"
+          confirm-type="search"
+          bindconfirm="searchWeather"
+          placeholder-class="placeholder"
+        />
+        <view class="search-btn" bindtap="searchWeather">
+          <text class="search-icon">🔍</text>
+          <text class="search-text">搜索</text>
+        </view>
+      </view>
+      
+      <!-- 常用城市标签 -->
+      <view class="common-cities">
+        <text class="cities-label">常用城市：</text>
+        <view class="city-tags">
+          <text 
+            class="city-tag" 
+            wx:for="{{commonCities}}" 
+            wx:key="index"
+            bindtap="selectCommonCity"
+            data-city="{{item}}"
+          >
+            {{item}}
+          </text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 默认提示（未搜索时显示） -->
+  <view class="default-container" wx:if="{{!hasSearched && !loading}}">
+    <view class="default-content">
+      <text class="default-icon">🌤️</text>
+      <text class="default-title">天气查询</text>
+      <text class="default-desc">请输入城市名称查询实时天气</text>
+    </view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading-container" wx:if="{{loading}}">
+    <view class="loading-content">
+      <view class="loading-spinner"></view>
+      <text class="loading-text">正在查询天气...</text>
+    </view>
+  </view>
+
+  <!-- 错误提示 -->
+  <view class="error-container" wx:if="{{errorMsg && !loading}}">
+    <text class="error-icon">⚠️</text>
+    <text class="error-text">{{errorMsg}}</text>
+  </view>
+
+  <!-- 天气信息展示（搜索结果） -->
+  <view class="weather-container" wx:if="{{currentWeather && !loading}}">
+    <!-- 城市和日期 -->
+    <view class="location-header">
+      <view class="location-content">
+        <text class="city-name">{{currentWeather.city}}</text>
+        <text class="date">{{currentWeather.date}}</text>
+      </view>
+    </view>
+
+    <!-- 主要天气信息 -->
+    <view class="weather-main">
+      <view class="weather-icon-container">
+        <text class="weather-icon">{{getWeatherIcon(currentWeather.wea)}}</text>
+      </view>
+      <view class="temp-info">
+        <text class="current-temp">{{currentWeather.tem}}°</text>
+        <text class="weather-desc">{{currentWeather.wea}}</text>
+      </view>
+    </view>
+
+    <!-- 温度范围 -->
+    <view class="temp-range">
+      <view class="high-temp-container">
+        <text class="temp-label">最高</text>
+        <text class="high-temp">{{currentWeather.tem_day}}°</text>
+      </view>
+      <view class="low-temp-container">
+        <text class="temp-label">最低</text>
+        <text class="low-temp">{{currentWeather.tem_night}}°</text>
+      </view>
+    </view>
+
+    <!-- 详细信息卡片 -->
+    <view class="detail-cards">
+      <view class="detail-card">
+        <text class="card-icon">💧</text>
+        <text class="card-label">湿度</text>
+        <text class="card-value">{{currentWeather.humidity}}%</text>
+      </view>
+      
+      <view class="detail-card">
+        <text class="card-icon">🌬️</text>
+        <text class="card-label">风向</text>
+        <text class="card-value">{{currentWeather.win}}</text>
+      </view>
+      
+      <view class="detail-card">
+        <text class="card-icon">💨</text>
+        <text class="card-label">风速</text>
+        <text class="card-value">{{currentWeather.win_speed}}</text>
+      </view>
+      
+      <view class="detail-card">
+        <text class="card-icon">📊</text>
+        <text class="card-label">气压</text>
+        <text class="card-value">{{currentWeather.pressure || '--'}}</text>
+      </view>
+    </view>
+
+    <!-- 天气提示 -->
+    <view class="weather-tips">
+      <view class="tips-header">
+        <text class="tips-icon">💡</text>
+        <text class="tips-title">温馨提示</text>
+      </view>
+      <text class="tips-content">{{getTempTips(currentWeather.tem_day)}}，{{getWeatherTips(currentWeather.wea)}}</text>
+    </view>
+
+    <!-- 空气质量 -->
+    <view class="air-quality" wx:if="{{currentWeather.air}}">
+      <view class="air-header">
+        <text class="air-icon">🌿</text>
+        <text class="air-title">空气质量</text>
+      </view>
+      <view class="air-content">
+        <text class="air-level">{{currentWeather.air_level || '--'}}</text>
+        <text class="air-index">AQI: {{currentWeather.air || '--'}}</text>
+      </view>
+      <text class="air-tips">{{currentWeather.air_tips || '--'}}</text>
+    </view>
+  </view>
+</view>

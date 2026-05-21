@@ -1,0 +1,188 @@
+<!--pages/analysis/analysis.wxml-->
+<view class="analysis-page">
+  <!-- 头部 -->
+  <view class="header">
+    <text class="header-title">📊 数据分析中心</text>
+    <text class="header-subtitle">深度分析您的打卡习惯</text>
+  </view>
+
+  <!-- 主内容容器 -->
+  <view class="main-content">
+    <!-- 时间筛选 -->
+    <view class="filter-section">
+      <picker mode="date" fields="month" value="{{currentMonth}}" bindchange="onMonthChange">
+        <view class="month-picker">
+          <text class="picker-icon">📅</text>
+          <text class="picker-text">{{displayMonth}}</text>
+          <text class="picker-arrow">▼</text>
+        </view>
+      </picker>
+      
+      <view class="quick-filters">
+        <text class="filter-tab {{timeRange === 'week' ? 'active' : ''}}" 
+              data-range="week" 
+              bindtap="onTimeRangeChange">本周</text>
+        <text class="filter-tab {{timeRange === 'month' ? 'active' : ''}}" 
+              data-range="month" 
+              bindtap="onTimeRangeChange">本月</text>
+        <text class="filter-tab {{timeRange === 'year' ? 'active' : ''}}" 
+              data-range="year" 
+              bindtap="onTimeRangeChange">本年</text>
+        <text class="filter-tab {{timeRange === 'all' ? 'active' : ''}}" 
+              data-range="all" 
+              bindtap="onTimeRangeChange">全部</text>
+      </view>
+    </view>
+
+    <!-- 关键指标 -->
+    <view class="key-metrics">
+      <view class="metric-card">
+        <text class="metric-number">{{summary.totalDays}}</text>
+        <text class="metric-label">打卡总天数</text>
+        <text class="metric-trend {{summary.daysTrend >= 0 ? 'up' : 'down'}}">
+          {{summary.daysTrend >= 0 ? '↑' : '↓'}}{{Math.abs(summary.daysTrend)}}%
+        </text>
+      </view>
+      <view class="metric-card">
+        <text class="metric-number">{{summary.totalCheckins}}</text>
+        <text class="metric-label">打卡总次数</text>
+        <text class="metric-trend {{summary.checkinsTrend >= 0 ? 'up' : 'down'}}">
+          {{summary.checkinsTrend >= 0 ? '↑' : '↓'}}{{Math.abs(summary.checkinsTrend)}}%
+        </text>
+      </view>
+      <view class="metric-card">
+        <text class="metric-number">{{summary.completionRate}}%</text>
+        <text class="metric-label">平均完成率</text>
+        <text class="metric-trend {{summary.rateTrend >= 0 ? 'up' : 'down'}}">
+          {{summary.rateTrend >= 0 ? '↑' : '↓'}}{{Math.abs(summary.rateTrend)}}%
+        </text>
+      </view>
+    </view>
+
+    <!-- 图表区域 -->
+    <scroll-view class="charts-container" scroll-y>
+      
+      <!-- 1. 每日打卡趋势图 -->
+      <view class="chart-card">
+        <view class="chart-header">
+          <text class="chart-title">📈 每日打卡趋势</text>
+          <text class="chart-subtitle">最近30天打卡情况</text>
+        </view>
+        <view class="chart-wrapper">
+          <canvas canvas-id="dailyChart" class="chart-canvas"></canvas>
+        </view>
+      </view>
+
+      <!-- 2. 项目完成率饼图 -->
+      <view class="chart-card">
+        <view class="chart-header">
+          <text class="chart-title">🥧 项目完成率分布</text>
+          <text class="chart-subtitle">各项目完成情况对比</text>
+        </view>
+        <view class="chart-wrapper">
+          <canvas canvas-id="projectPieChart" class="chart-canvas"></canvas>
+        </view>
+        <view class="legend">
+          <view class="legend-item" wx:for="{{projectStats}}" wx:key="id">
+            <view class="legend-color {{'color-' + $index}}"></view>
+            <text class="legend-name">{{item.name}}</text>
+            <text class="legend-value">{{item.completionRate}}%</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 3. 周内打卡热度图 -->
+      <view class="chart-card">
+        <view class="chart-header">
+          <text class="chart-title">🔥 周内打卡热度</text>
+          <text class="chart-subtitle">一周中哪天打卡最多</text>
+        </view>
+        <view class="chart-wrapper week-heat-chart">
+          <canvas canvas-id="weekHeatChart" class="chart-canvas"></canvas>
+        </view>
+        <view class="week-labels">
+          <text class="week-label" wx:for="{{weekDays}}" wx:key="index">{{item}}</text>
+        </view>
+      </view>
+
+      <!-- 4. 时段分布图 -->
+      <view class="chart-card">
+        <view class="chart-header">
+          <text class="chart-title">⏰ 打卡时段分布</text>
+          <text class="chart-subtitle">一天中何时打卡最频繁</text>
+        </view>
+        <view class="chart-wrapper time-distribution-chart">
+          <canvas canvas-id="timeDistributionChart" class="chart-canvas"></canvas>
+        </view>
+      </view>
+
+      <!-- 5. 连续打卡统计 -->
+      <view class="chart-card">
+        <view class="chart-header">
+          <text class="chart-title">🏆 连续打卡统计</text>
+          <text class="chart-subtitle">最长连续打卡记录</text>
+        </view>
+        <view class="streak-stats">
+          <view class="streak-item">
+            <text class="streak-number">{{streakStats.currentStreak}}</text>
+            <text class="streak-label">当前连续</text>
+          </view>
+          <view class="streak-item">
+            <text class="streak-number">{{streakStats.maxStreak}}</text>
+            <text class="streak-label">最长连续</text>
+          </view>
+          <view class="streak-item">
+            <text class="streak-number">{{streakStats.avgStreak}}</text>
+            <text class="streak-label">平均连续</text>
+          </view>
+          <view class="streak-item">
+            <text class="streak-number">{{streakStats.totalStreaks}}</text>
+            <text class="streak-label">连续次数</text>
+          </view>
+        </view>
+        <view class="chart-wrapper streak-chart">
+          <canvas canvas-id="streakChart" class="chart-canvas"></canvas>
+        </view>
+      </view>
+
+      <!-- 6. 月度对比图 -->
+      <view class="chart-card">
+        <view class="chart-header">
+          <text class="chart-title">📅 月度对比</text>
+          <text class="chart-subtitle">最近6个月打卡对比</text>
+        </view>
+        <view class="chart-wrapper monthly-chart">
+          <canvas canvas-id="monthlyChart" class="chart-canvas"></canvas>
+        </view>
+      </view>
+
+      <!-- 详细数据表格 -->
+      <view class="data-table">
+        <view class="table-header">
+          <text class="table-title">详细数据统计</text>
+          <text class="table-total">共{{projectStats.length}}个项目</text>
+        </view>
+        <scroll-view class="table-body" scroll-y>
+          <view class="table-row header-row">
+            <text class="table-cell">项目名称</text>
+            <text class="table-cell">打卡天数</text>
+            <text class="table-cell">完成率</text>
+            <text class="table-cell">连续打卡</text>
+          </view>
+          <view class="table-row" wx:for="{{projectStats}}" wx:key="id">
+            <text class="table-cell">{{item.name}}</text>
+            <text class="table-cell">{{item.totalDays}}</text>
+            <text class="table-cell">{{item.completionRate}}%</text>
+            <text class="table-cell">{{item.currentStreak}}天</text>
+          </view>
+        </scroll-view>
+      </view>
+
+    </scroll-view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading" wx:if="{{isLoading}}">
+    <text class="loading-text">正在分析数据...</text>
+  </view>
+</view>
